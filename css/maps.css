@@ -2,7 +2,7 @@
 	height: 100%;
 	width: 100%;
 	position: absolute;
-	z-index: 0;
+	z-index: 1;
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {
@@ -13,7 +13,7 @@ html, body {
 
 .widget {
 	position: relative; 
-	z-index: 1; /* The z-index should be higher than Google Maps */
+	z-index: 2; /* The z-index should be higher than Google Maps */
 	width: 300px;
 	margin: 60px auto 0;
 	padding: 10px;
