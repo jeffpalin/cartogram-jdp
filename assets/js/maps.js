@@ -136,15 +136,18 @@ function getWeather() {
 }
 getWeather();
 
+// Hide toolbars on map click
 $('#map')
   .mousedown(function(){
-    $('.topbar').hide();
-    $('.toolbar').hide();
+    // $('.topbar').hide();
+    $('.topbar').fadeOut(300);
+    $('.toolbar').fadeOut(300);
+    // $('.toolbar').hide();
 
   })
   .mouseup(function(){
-    $('.topbar').show();
-    $('.toolbar').show();
+    $('.topbar').fadeIn(300);
+    $('.toolbar').fadeIn(300);
     $('.card.blue-grey.darken-1').css('background-color', 'rgba(0, 0, 0, 0)');
   });
 
@@ -156,32 +159,32 @@ $('#map')
 
 
 
-// // ************* NOT WORKING ********************
-// function showPlaces() {
-//     navigator.geolocation.getCurrentPosition(function(position) {
-//         var pos = {
-//             lat: position.coords.latitude,
-//             lng: position.coords.longitude
-//         };
-//         var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
-//         var queryURL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + pos.lat + ',' + pos.lng + 
-//         '&radius=500&type=restaurant&keyword=cruise&key=' + api_key;
-//         $.ajax({
-//           url: queryURL,
-//           method: 'GET',
-//           dataType: 'jsonp',
-//         }).done(function(response){
-//           // for (var i = 0; i < response.results.length; i++) {
-//             var pin = response.results[1].icon;
-//             var attributions = response.html_attributions[0]
-//             // var img = $('<img>');
-//             // img.addClass('pins');
-//             // img.attr('src', pin);
-//             // $('#map').html('img');
-//             console.log(pin);
-//           // }
+// ************* NOT WORKING ********************
+function showPlaces() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+        var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
+        var queryURL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + pos.lat + ',' + pos.lng + 
+        '&radius=500&type=restaurant&keyword=cruise&key=' + api_key;
+        $.ajax({
+          url: queryURL,
+          method: 'GET',
+          dataType: 'jsonp',
+        }).done(function(response){
+          // for (var i = 0; i < response.results.length; i++) {
+            var pin = response.results[1].icon;
+            var attributions = response.html_attributions[0]
+            // var img = $('<img>');
+            // img.addClass('pins');
+            // img.attr('src', pin);
+            // $('#map').html('img');
+            console.log(pin);
+          // }
 
-//         });
-//     });
-// }
-// showPlaces();
+        });
+    });
+}
+showPlaces();
