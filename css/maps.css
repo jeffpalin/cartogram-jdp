@@ -1,0 +1,25 @@
+#map {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	z-index: 1;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.widget {
+	position: relative; 
+	z-index: 2; /* The z-index should be higher than Google Maps */
+	width: 300px;
+	margin: 60px auto 0;
+	padding: 10px;
+	background: black;
+	height: auto;
+	opacity: .45; /* Set the opacity for slightly transparent */ 
+	color: white;
+	margin-top: 
+}

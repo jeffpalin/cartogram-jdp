@@ -1,4 +1,4 @@
-// Display map on page and ask for location
+// Display map on page and find location
 var map, infoWindow;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -68,10 +68,13 @@ function decodeLocation(){
   });
 }
 decodeLocation();
+<<<<<<< HEAD:assets/js/maps.js
 
 
 
 
+=======
+>>>>>>> master:assets/js/maps.js
 
 
 
