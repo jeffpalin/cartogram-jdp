@@ -15,6 +15,7 @@ function initMap() {
         lng: position.coords.longitude
       };
 
+
       infoWindow.setPosition(pos);
       infoWindow.setContent('Location found.');
       infoWindow.open(map);
@@ -36,39 +37,60 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
-// Use api to call for lat / lng
-var apikey = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
-var queryURL = 'https://www.googleapis.com/geolocation/v1/geolocate?key=' + apikey;
+// NOT WORKING: AJAX call to get location
+// function getLocation(){
+//   var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
+//   var queryURL = 'http://www.googleapis.com/geolocation/v1/geolocate?key=' + api_key;
+  
+//   navigator.geolocation.getCurrentPosition(function(position){
+//     var pos = {
+//       lat: position.coords.latitude,
+//       lng: position.coords.longitude
+//     };
+//     var data = {
+//       "location": {
+//       "lat": pos.lat,
+//       "lng": pos.lng
+//       },
+//       "accuracy": 1200.4
+//     };
 
-function findCoords() {
+//     $.ajax({
+//       url: queryURL,
+//       method: 'GET',
+//       dataType: 'json',
+//       data: data
+//     }).done(function(response){
+//       console.log(data.location.pos.lat);
+//     });
+//   });
+// }  
+// getLocation();
+
+// Find IP address of user
+function getIP() {
+  var format = 'json';
+  var queryURL = 'http://freegeoip.net/' + format + '/?callback=?';
+  navigator.geolocation.getCurrentPosition(function(position){
+    var pos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+    var data = {
+    lat: pos.lat,
+    lng: pos.lng
+  };
   $.ajax({
     url: queryURL,
-    data: {
-      "considerIp": "true",
-      "wifiAccessPoints": [
-        {
-            "macAddress": "00:25:9c:cf:1c:ac",
-            "signalStrength": -43,
-            "signalToNoiseRatio": 0
-        },
-        {
-            "macAddress": "00:25:9c:cf:1c:ad",
-            "signalStrength": -55,
-            "signalToNoiseRatio": 0
-        }
-      ]
-    },
-    method: 'POST'
-
+    method: 'GET',
+    dataType: 'json',
+    data: data,
   }).done(function(response){
-    $('#location').html(response.location.lat);
-    console.log(response);
-});
+    $('#location').html(data.lat);
+  }); 
+  });
 }
-findCoords();
-
-
-
+getIP();
 
 
 
