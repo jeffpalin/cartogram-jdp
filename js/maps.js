@@ -37,49 +37,22 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
-// NOT WORKING: AJAX call to get location
-// function getLocation(){
-//   var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
-//   var queryURL = 'http://www.googleapis.com/geolocation/v1/geolocate?key=' + api_key;
-  
-//   navigator.geolocation.getCurrentPosition(function(position){
-//     var pos = {
-//       lat: position.coords.latitude,
-//       lng: position.coords.longitude
-//     };
-//     var data = {
-//       "location": {
-//       "lat": pos.lat,
-//       "lng": pos.lng
-//       },
-//       "accuracy": 1200.4
-//     };
-
-//     $.ajax({
-//       url: queryURL,
-//       method: 'GET',
-//       dataType: 'json',
-//       data: data
-//     }).done(function(response){
-//       console.log(data.location.pos.lat);
-//     });
-//   });
-// }  
-// getLocation();
-
-// Find IP address of user
-function getIP() {
+// Find location of user
+function getLocation() {
   var format = 'json';
-  var queryURL = 'http://freegeoip.net/' + format + '/?callback=?';
+  var queryURL = 'https://freegeoip.net/' + format + '/?callback=?';
+  // Use google maps geolocation api to retrieve exact coordinates
   navigator.geolocation.getCurrentPosition(function(position){
     var pos = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
     };
+    // Define data object using JSON response from freegeoip.net
     var data = {
     lat: pos.lat,
     lng: pos.lng
   };
+  // Call upon data and write to page in desired locations
   $.ajax({
     url: queryURL,
     method: 'GET',
@@ -90,7 +63,7 @@ function getIP() {
   }); 
   });
 }
-getIP();
+getLocation();
 
 
 
