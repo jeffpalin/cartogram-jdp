@@ -68,13 +68,6 @@ function decodeLocation(){
   });
 }
 decodeLocation();
-<<<<<<< HEAD:assets/js/maps.js
-
-
-
-
-=======
->>>>>>> master:assets/js/maps.js
 
 
 
