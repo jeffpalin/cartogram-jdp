@@ -1,4 +1,3 @@
-
 // Initial Variables
 
 var apiKey = "e1d9840d8542ded69ac25a4b5ffc320b";
@@ -51,6 +50,4 @@ function getWeather(lat, lng) {
       console.log("Weather Icon: ", weatherIcon);
   });
 };
-
-
 
