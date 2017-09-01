@@ -40,6 +40,8 @@ function getWeather(lat, lng) {
       var weatherIcon = response.weather[0].icon;
       //Weather Icon Actual Image File
       var iconImage = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
+      //Weather icon send to HTML class="icon"
+      $(".icon").html("<img src='" + iconImage  + "'>");
 
       console.log("Location: ", currentLocation);
       console.log("Temp: ",currentTemp);
