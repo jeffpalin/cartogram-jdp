@@ -1,0 +1,37 @@
+/* Optional: Makes the sample page fill the window. */
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+nav, .nav-wrapper {
+	background: rgba(250, 128, 114, 0.2);
+	opacity: 0.2%;
+	width: 100%;
+	position: absolute;
+	z-index: 2;
+}
+
+nav ul a {
+	color: red;
+}
+
+#map {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	z-index: 1;
+	overflow: visible;
+}
+
+#widget-bar {
+	right: 50px;
+	top: 70px;
+	width: 350px;
+	height: 100%;
+	position: absolute;
+	z-index: 3;
+}
