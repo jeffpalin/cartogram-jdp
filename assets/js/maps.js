@@ -1,3 +1,5 @@
+// Display map on page and find location
+
 var map, infoWindow;
 
 function initMap() {
@@ -135,6 +137,7 @@ function getWeather() {
 }
 getWeather();
 
+
 $('#map')
   .mousedown(function(){
     $('.topbar').hide();
@@ -146,6 +149,7 @@ $('#map')
     $('.toolbar').show();
     $('.card.blue-grey.darken-1').css('background-color', 'rgba(0, 0, 0, 0)');
   });
+
 
 
 
