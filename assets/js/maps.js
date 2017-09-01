@@ -37,33 +37,37 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
-// Find location of user
-function getLocation() {
-  var format = 'json';
-  var queryURL = 'https://freegeoip.net/' + format + '/?callback=?';
+// --- LOCATION FUNCTION ---
+function decodeLocation(){
+  var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
   // Use google maps geolocation api to retrieve exact coordinates
   navigator.geolocation.getCurrentPosition(function(position){
+    // Position object, includes latitude and longitude
     var pos = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
     };
-    // Define data object using JSON response from freegeoip.net
-    var data = {
-    lat: pos.lat,
-    lng: pos.lng
-  };
-  // Call upon data and write to page in desired locations
-  $.ajax({
+    // Define latlng parameter using a variable
+    var latlng = pos.lat + ',' + pos.lng;
+    console.log(latlng);
+    // Structure URL
+    var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&result_type=street_address' + '&key=' + api_key;
+    // Begin ajax call 
+    $.ajax({
     url: queryURL,
-    method: 'GET',
-    dataType: 'json',
-    data: data,
+    method: 'GET'
   }).done(function(response){
-    $('#location').html(data.lat);
-  }); 
+    // Loop through JSON object to retrieve desired response result
+    for (var i = 0; i < response.results.length; i++) {
+      // Define address using JSON object
+      var address = response.results[i].formatted_address;
+      // Write address to page
+      $('#location').html(address);
+    }
+  });
   });
 }
-getLocation();
+decodeLocation();
 
 
 
