@@ -52,20 +52,35 @@ function getLocation() {
     lat: pos.lat,
     lng: pos.lng
   };
-  // Call upon data and write to page in desired locations
-  $.ajax({
-    url: queryURL,
-    method: 'GET',
-    dataType: 'json',
-    data: data,
-  }).done(function(response){
-    $('#location').html(data.lat);
-  }); 
   });
 }
 getLocation();
 
+// Turn coordinates into formatted data
+function decodeLocation(){
+  var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
 
+  navigator.geolocation.getCurrentPosition(function(position){
+    var pos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+    var latlng = pos.lat + ',' + pos.lng;
+    console.log(latlng);
+    var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&key=' + api_key;
+    $.ajax({
+    url: queryURL,
+    method: 'GET'
+  }).done(function(response){
+    for (var i = 0; i < response.results.length; i++) {
+      var address = response.results[i].formatted_address;
+      // getLocation();
+      $('#location').html(address);
+    }
+  });
+  });
+}
+decodeLocation();
 
 
 
