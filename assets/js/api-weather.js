@@ -28,13 +28,20 @@ function getWeather(lat, lng) {
     console.log(response);
 
       // Selected weather information - can be edited as needed
-      currentLocation = response.name;
+      var currentLocation = response.name;
       //Temperature in fahrenheit
-      currentTemp = 9 / 5 * (parseInt(response.main.temp) - 273) + 32;
-      currentHumidity = response.main.humidity;
-      windSpeed = 0.621371 * (response.wind.speed);
-      weatherType = response.weather[0].description;
-      weatherIcon = response.weather[0].icon;
+      var currentTemp = 9 / 5 * (parseInt(response.main.temp) - 273) + 32;
+      var currentHumidity = response.main.humidity;
+      //Wind Speed in MPH
+      var windSpeed = 0.621371 * (response.wind.speed);
+      //Weather Description Text
+      var weatherType = response.weather[0].description;
+      //Weather Icon Code
+      var weatherIcon = response.weather[0].icon;
+      //Weather Icon Actual Image File
+      var iconImage = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
+      //Weather icon send to HTML class="icon"
+      $(".icon").html("<img src='" + iconImage  + "'>");
 
       console.log("Location: ", currentLocation);
       console.log("Temp: ",currentTemp);
