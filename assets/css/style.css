@@ -7,17 +7,26 @@ body {
 	padding: 0;
 }
 
-nav, .nav-wrapper {
+.toolbar, .nav-wrapper {
 	/*background: rgba(250, 128, 114, 0.2);*/
-	background-color: rgba(84, 110, 122, 0.2)!important;
+	background-color: rgba(84, 110, 122, 0.6)!important;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	z-index: 2;
+}
+
+.topbar {
+	/*background: rgba(250, 128, 114, 0.2);*/
+	background-color: rgba(0, 0, 0, 0)!important;
 	width: 100%;
 	position: absolute;
 	z-index: 2;
 }
 
-nav ul a {
+/*nav ul a {
 	color: red;
-}
+}*/
 
 #map {
 	height: 100%;
@@ -32,14 +41,15 @@ nav ul a {
 	top: 70px;
 	width: 350px;
 	height: 10rem;
+	margin-bottom: 25px;
 	position: absolute;
 	z-index: 3;
 }
 
 .card.blue-grey.darken-1 {
-	background-color: rgba(84, 110, 122, 0.45)!important;
+	background-color: rgba(84, 110, 122, 0.75)!important;
 }
 
 .card.blue-grey.darken-1:hover {
-	background-color: rgba(84, 110, 122, 0.2)!important;
+	background-color: rgba(84, 110, 122, 0.45)!important;
 }
