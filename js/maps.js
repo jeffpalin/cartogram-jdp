@@ -67,7 +67,8 @@ function decodeLocation(){
     };
     var latlng = pos.lat + ',' + pos.lng;
     console.log(latlng);
-    var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&key=' + api_key;
+    var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&result_type=street_address' + '&key=' + api_key;
+    
     $.ajax({
     url: queryURL,
     method: 'GET'
