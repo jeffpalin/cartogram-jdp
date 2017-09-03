@@ -7,15 +7,17 @@
     <meta charset="utf-8">
     <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" sizes="32x32">
     <script src="https://use.fontawesome.com/62f4e174f3.js"></script>
-   <!-- Compiled and minified CSS -->
+    <!--script for google places  -->
+
+    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-	
-    
+
+
     <!-- <div class="container"> -->
     <nav class="topbar transparent z-depth-0">
         <div class="nav-wrapper">
@@ -54,28 +56,24 @@
                 <span class="card-title"><span id="weather-icon" style="float: right;"></span>Weather</span>
                 <p><span id="weatherData"></span></p>
             </div>
-      	</div>
+        </div>
         <div class="card blue-grey darken-1">
             <div class="card-content white-text">
                 <span class="card-title">Card Title</span>
                 <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
                     little markup to use effectively.</p>
             </div>
-    	</div>
-    <!-- <script type="text/javascript" src="assets/js/app.js"></script> -->
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script
-  src="https://code.jquery.com/jquery-3.2.1.js"
-  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-  crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script type="text/javascript" src="assets/js/maps.js"></script>
-    <script type="text/javascript" src="assets/js/api-weather.js"></script>
-    <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o&callback=initMap">
-    </script> -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o&callback=initMap">
-    </script>
-    
+        </div>
+        <!-- <script type="text/javascript" src="assets/js/app.js"></script> -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <script type="text/javascript" src="assets/js/maps.js"></script>
+        <script type="text/javascript" src="assets/js/api-weather.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o&libraries=places&callback=initMapLocationPlaces"
+            async defer>
+        </script>
+
 </body>
 
 </html>
