@@ -144,9 +144,10 @@ $('#map')
     // I'm gonna use css transitions for this because jQuery fades have built in timeouts that we don't want
     $('.topbar, .toolbar').css("opacity", 0);
     $('.card.blue-ish.darken-1').css('background-color', 'rgba(84, 110, 122, 0.35)');
-  })
-  // Fade toolbar in on mouse down
-  .mouseup(function(){
+    $("#login-options").fadeOut();
+  });
+  // Fade toolbar in on mouse up - even if mouse up event isn't over map
+$(document).mouseup(function(){
     $('.topbar, .toolbar').css("opacity", "");
     $('.card.blue-ish.darken-1').css('background-color', '');
   });

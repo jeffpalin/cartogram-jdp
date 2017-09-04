@@ -13,6 +13,7 @@ body {
 	position: absolute;
 	bottom: 0;
 	z-index: 2;
+	color: white;
 }
 
 .topbar, .toolbar {
@@ -28,6 +29,23 @@ body {
 .toolbar {
 	bottom: 0;
 	overflow: hidden;
+}
+
+#login-options{
+	position: absolute;
+	bottom: 60px;
+	left: 10px;
+	z-index: 999999999;
+	display: none;
+}
+
+#login-options div{
+	color: white;
+	padding: 4px 10px;
+	cursor: pointer;
+}
+#login-options div:hover{
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 .brand-logo{
@@ -66,8 +84,11 @@ body {
 	-webkit-border-radius: 6px;
 }
 
-.card.blue-ish.darken-1 {
+.blue-ish{
 	background-color: rgba(84, 110, 122, 0.75);
+}
+
+.card.blue-ish.darken-1 {
 	transition: 0.2s linear background-color; 
 }
 
@@ -100,7 +121,6 @@ div.gm-style div.gmnoprint:nth-child(11){
 #map div div.gm-style:nth-child(2) div:nth-child(10){
 	top: 63px !important;
 }
-
 div.gm-style div div.gm-iv-address{
 	height: auto !important;
 }
