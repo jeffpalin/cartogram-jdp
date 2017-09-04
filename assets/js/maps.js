@@ -165,7 +165,7 @@ function getFarmers(lat, lng){
     var lng = pos.lng;
     console.log(lat);
     console.log(lng);    
-    var queryURL = 'http://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=' + lat + '&lng=' + lng;
+    var queryURL = 'https://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=' + lat + '&lng=' + lng;
     $.ajax({
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
