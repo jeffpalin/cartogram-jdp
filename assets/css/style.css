@@ -7,21 +7,49 @@ body {
 	padding: 0;
 }
 
-.toolbar, .nav-wrapper {
+.nav-wrapper {
 	/*background: rgba(250, 128, 114, 0.2);*/
-	background-color: rgba(84, 110, 122, 0.6)!important;
 	width: 100%;
 	position: absolute;
 	bottom: 0;
 	z-index: 2;
+	color: white;
 }
 
-.topbar {
+.topbar, .toolbar {
 	/*background: rgba(250, 128, 114, 0.2);*/
-	background-color: rgba(0, 0, 0, 0)!important;
+	background-color: rgba(84, 110, 122, 0.75)!important;
 	width: 100%;
 	position: absolute;
 	z-index: 2;
+	opacity: 1;
+	transition: 0.3s linear opacity;
+}
+
+.toolbar {
+	bottom: 0;
+	overflow: hidden;
+}
+
+#login-options{
+	position: absolute;
+	bottom: 60px;
+	left: 10px;
+	z-index: 999999999;
+	display: none;
+}
+
+#login-options div{
+	color: white;
+	padding: 4px 10px;
+	cursor: pointer;
+}
+#login-options div:hover{
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.brand-logo{
+	text-shadow: 1px 1px 3px #383f42;
 }
 
 /*nav ul a {
@@ -37,10 +65,10 @@ body {
 }
 
 #widget-bar {
-	right: 50px;
+	right: 10px;
 	top: 70px;
 	width: 350px;
-	height: 37rem;
+	height: calc(100vh - 140px);
 	margin-bottom: 25px;
 	position: absolute;
 	z-index: 3;
@@ -56,11 +84,43 @@ body {
 	-webkit-border-radius: 6px;
 }
 
-.card.blue-grey.darken-1 {
-	background-color: rgba(84, 110, 122, 0.75)!important;
+.blue-ish{
+	background-color: rgba(84, 110, 122, 0.75);
 }
 
-.card.blue-grey.darken-1:hover {
-	background-color: rgba(84, 110, 122, 0.45)!important;
+.card.blue-ish.darken-1 {
+	transition: 0.2s linear background-color; 
 }
 
+.card.blue-ish.darken-1:hover {
+	background-color: rgba(84, 110, 122, 0.45);
+}
+
+/* map tweaks */
+#map div div.gm-style:nth-child(1) div:nth-child(7),
+#map div div.gm-style:nth-child(1) div:nth-child(8){
+	display: none; !important;
+}
+div.gm-style div.gmnoprint:nth-child(9){
+	left: 0px !important;
+	bottom: 157px !important;
+}
+div.gm-style div.gmnoprint:nth-child(11){
+	top: 63px !important;
+}
+
+/* streetview */ 
+#map div div.gm-style:nth-child(2) div:nth-child(7){
+	display: none !important;
+}
+#map div div.gm-style:nth-child(2) div:nth-child(8){
+	left: 0px !important;
+	bottom: 119px !important;
+}
+#map div div.gm-style:nth-child(2) div:nth-child(9), 
+#map div div.gm-style:nth-child(2) div:nth-child(10){
+	top: 63px !important;
+}
+div.gm-style div div.gm-iv-address{
+	height: auto !important;
+}

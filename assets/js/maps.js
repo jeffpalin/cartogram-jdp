@@ -141,14 +141,15 @@ getWeather();
 $('#map')
   // Fade toolbar out on mouse down
   .mousedown(function(){
-    $('.topbar').fadeOut(300);
-    $('.toolbar').fadeOut(300);
-  })
-  // Fade toolbar in on mouse down
-  .mouseup(function(){
-    $('.topbar').fadeIn(300);
-    $('.toolbar').fadeIn(300);
-    $('.card.blue-grey.darken-1').css('background-color', 'rgba(0, 0, 0, 0)');
+    // I'm gonna use css transitions for this because jQuery fades have built in timeouts that we don't want
+    $('.topbar, .toolbar').css("opacity", 0);
+    $('.card.blue-ish.darken-1').css('background-color', 'rgba(84, 110, 122, 0.35)');
+    $("#login-options").fadeOut();
+  });
+  // Fade toolbar in on mouse up - even if mouse up event isn't over map
+$(document).mouseup(function(){
+    $('.topbar, .toolbar').css("opacity", "");
+    $('.card.blue-ish.darken-1').css('background-color', '');
   });
 
 
