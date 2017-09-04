@@ -1,6 +1,36 @@
+// ============================== TABLE OF CONTENTS ==============================
+// 01. Map Functions
+// 02. Location Functions
+// 03. Weather Functions
+// 04. Toolbar Animations
+// TODO: 05. Places Functions
+// 06. Farmers Market Functions 
+// ============================== TABLE OF CONTENTS ==============================
+
+// --------- 01. MAP FUNCTIONS ------------------
 // Display map on page and find location
 
-var map, infoWindow;
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('You');
+            infoWindow.open(map);
+            map.setCenter(pos);
+        }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
+}
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
@@ -10,30 +40,59 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.open(map);
 }
 
-// // Selected weather information - can be edited as needed
-//       var currentLocation = response.name;
-//       //Temperature in fahrenheit
-//       var currentTemp = 9 / 5 * (parseInt(response.main.temp) - 273) + 32;
-//       var currentHumidity = response.main.humidity;
-//       //Wind Speed in MPH
-//       windSpeed = 0.621371 * (response.wind.speed);
-//       //Weather Description Text
-//       weatherType = response.weather[0].description;
-//       //Weather Icon Code
-//       weatherIcon = response.weather[0].icon;
-//       //Weather Icon Actual Image File
-//       iconImage = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
-
-function getWeather() {
-    var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
-    navigator.geolocation.getCurrentPosition(function (position) {
+// --- 02. LOCATION FUNCTIONS ---
+function decodeLocation() {
+    var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
+    // Use google maps geolocation api to retrieve exact coordinates
+    navigator.geolocation.getCurrentPosition(function(position) {
+        // Position object, includes latitude and longitude
         var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
+        // Define latlng parameter using a variable
+        var latlng = pos.lat + ',' + pos.lng;
+        console.log(latlng);
+        // Structure URL
+        var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&result_type=street_address' + '&key=' + api_key;
+        // Begin ajax call 
+        $.ajax({
+            url: queryURL,
+            method: 'GET'
+        }).done(function(response) {
+            // Loop through JSON object to retrieve desired response result
+            for (var i = 0; i < response.results.length; i++) {
+                // Define address using JSON object
+                var address = response.results[i].formatted_address;
+                // Write address to page
+                $('#location').html(address);
+            }
+        });
+    });
+}
+decodeLocation();
+
+// ----------- 03. WEATHER FUNCTIONS -------------
+function getWeather() {
+  // OpenWeather API Key
+  var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
+    // Find coordinates based on google's Geolocation API
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+function getWeather() {
+    var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
+    navigator.geolocation.getCurrentPosition(function (position) {
+
+        var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+        // Set easily referenced variables for lat and lng
         var lat = pos.lat;
         var lng = pos.lng;
+        // Structure query URL
         var queryURL = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lng + '&appid=' + api_key;
+        // Set data object
         var data = {
             'coord': {
                 'lon': lng,
@@ -41,12 +100,13 @@ function getWeather() {
             },
             'weather': []
         };
-
+        // Begin AJAX call
         $.ajax({
             url: queryURL,
             method: 'GET',
             data: data
-        }).done(function (response) {
+        }).done(function(response) {
+            // Loop through JSON response object
             for (var i = 0; i < response.weather.length; i++) {
                 //Weather Icon Code
                 var weatherIcon = response.weather[i].icon;
@@ -61,11 +121,11 @@ function getWeather() {
                 //Show icon in weather icon area
                 $('#weather-icon').html(img);
             }
-            // Calculate current temperature in farenheit 
+            // Calculate current temperature in farenheit, round to nearest whole number 
             var currentTemp = Math.round(9 / 5 * (parseInt(response.main.temp) - 273) + 32);
-            // Calculate wind speed in MPH
+            // Calculate wind speed in MPH, round to nearest whole number
             var windSpeed = Math.round(0.621371 * (response.wind.speed));
-            // Write weather data to screen
+            // Write weather data to widget
             var weatherData = '<p><strong>Temperature: </strong>' + currentTemp + '&#8457</p><br>' +
                 '<p><strong>Humidity: </strong>' + response.main.humidity + '%</p><br>' + '<p><strong>Wind Speed: </strong>' + windSpeed + ' MPH';
             $('#weatherData').html(weatherData);
@@ -74,19 +134,53 @@ function getWeather() {
 }
 getWeather();
 
-
+// -------- 04. TOOLBAR ANIMATIONS ----------
+// Show / hide toolbars on map click
 $('#map')
-    .mousedown(function () {
-        $('.topbar').hide();
-        $('.toolbar').hide();
+  // Fade toolbar out on mouse down
+  .mousedown(function(){
+    $('.topbar').fadeOut(300);
+    $('.toolbar').fadeOut(300);
+  })
+  // Fade toolbar in on mouse down
+  .mouseup(function(){
+    $('.topbar').fadeIn(300);
+    $('.toolbar').fadeIn(300);
+    $('.card.blue-grey.darken-1').css('background-color', 'rgba(0, 0, 0, 0)');
+  });
 
-    })
-    .mouseup(function () {
-        $('.topbar').show();
-        $('.toolbar').show();
-        $('.card.blue-grey.darken-1').css('background-color', 'rgba(0, 0, 0, 0)');
-    });
 
+// -------- 05. FARMERS MARKET FUNCTIONS --------
+
+function getFarmers(lat, lng){
+
+  navigator.geolocation.getCurrentPosition(function(position){
+    var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+    var lat = pos.lat;
+    var lng = pos.lng;
+    console.log(lat);
+    console.log(lng);    
+    var queryURL = 'http://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=' + lat + '&lng=' + lng;
+    $.ajax({
+      method: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      url: queryURL,
+      dataType: 'jsonp',
+      jsonpCallback: 'detailResultsHandler'
+    }).done(function(response){
+     for (var i = 0; i < 3; i++){
+      var markets = response.results[i].marketname;
+      $('#farmersData').append('<p style="color: black;"><strong>Miles: </strong></p>' + markets + '<br>');
+     }
+  });
+});
+}
+getFarmers();
+
+      
 function populateLocationWidget(pos) {
     var google_places_api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
     // Structure URL
@@ -148,3 +242,4 @@ function createMarker(place) {
         infowindow.open(map, this);
     });
 }
+
