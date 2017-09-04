@@ -6,25 +6,26 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" sizes="32x32">
-    
-    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://use.fontawesome.com/62f4e174f3.js"></script>
 </head>
 
 <body>
-	
-    
+
     <!-- <div class="container"> -->
     <nav class="topbar transparent z-depth-0">
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo center">Cartogram</a>
+            <a href="#" class="brand-logo center"></a>
         </div>
     </nav>
     <nav class="toolbar">
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo center">Toolbar</a>
+            <a href="#" class="brand-logo center">Cartogram</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li><a href="#"><i style="color: white;" class="fa fa-google fa-2x"></i></a></li>
                 <li><a href="#"><i style="color: white;" class="fa fa-facebook fa-2x"></i></a></li>
@@ -32,11 +33,11 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down center">
                 <li><a href="#"><i style="color: white;" class="fa fa-map-marker fa-2x"></i></a></li>
                 <li><a href="#"><i style="color: white;" class="fa fa-search fa-2x"></i></a></li>
+                <li><a href="#"><i style="color: white;" class="fa fa-history fa-2x"></i></a></li>
             </ul>
         </div>
     </nav>
-    <div id="map">
-    </div>
+    <div id="map"></div>
     <div id="widget-bar">
         <div class="card widget blue-grey darken-1">
             <div class="card-content white-text">
@@ -53,27 +54,19 @@
                 <span class="card-title"><span id="weather-icon" style="float: right;"></span>Weather</span>
                 <p><span id="weatherData"></span></p>
             </div>
-      	</div>
+        </div>
         <div class="card blue-grey darken-1">
             <div class="card-content white-text">
                 <span class="card-title">Local Farmer's Markets</span>
                 <p><span id="farmersData"></span></p>
             </div>
-    	</div>
-    <!-- <script type="text/javascript" src="assets/js/app.js"></script> -->
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script
-  src="https://code.jquery.com/jquery-3.2.1.js"
-  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-  crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script type="text/javascript" src="assets/js/maps.js"></script>
-    <script type="text/javascript" src="assets/js/api-weather.js"></script>
-    <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o&callback=initMap">
-    </script> -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o&callback=initMap">
-    </script>
-    <script src="https://use.fontawesome.com/62f4e174f3.js"></script>
+        </div>
+        <!-- <script type="text/javascript" src="assets/js/app.js"></script> -->
+        <script type="text/javascript" src="assets/js/maps.js"></script>
+        <script type="text/javascript" src="assets/js/api-weather.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o&libraries=places&callback=initMapLocationPlaces"
+            async defer>
+        </script>
 </body>
 
 </html>
