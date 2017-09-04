@@ -82,12 +82,6 @@ decodeLocation();
 
 // ----------- 03. WEATHER FUNCTIONS -------------
 function getWeather() {
-  // OpenWeather API Key
-  var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
-    // Find coordinates based on google's Geolocation API
-    navigator.geolocation.getCurrentPosition(function(position) {
-
-function getWeather() {
     var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
     navigator.geolocation.getCurrentPosition(function (position) {
 
