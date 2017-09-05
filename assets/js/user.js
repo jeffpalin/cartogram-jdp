@@ -117,6 +117,18 @@ function testHistory(){
 	});
 }*/
 
+// get chat message from server on value change
+database.ref("/users/" + user.id + "/apps").on("value", function(snap) {
+	var showApps = "#location-widget";
+	showApps += snap.val().weather ? ", #weather-widget" : "";
+	showApps += snap.val().farmers ? ", #farmers-widget" : "";
+	$(".widget").hide();
+	$(showApps).show();
+}, function(errorObject) {
+  console.log("The read failed: " + errorObject.code);
+});
+
+
 firebase.auth().onAuthStateChanged(function(logged) {
 	if (logged) {
 		// user is authenticated
