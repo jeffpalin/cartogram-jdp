@@ -47,13 +47,6 @@ function facebookSignin() {
 		console.log(error.code, error.message);
 	});
 }
-function facebookSignout(){
-	firebase.auth().signOut().then(function() {
-		console.log('User signed out of Facebook')
-	}, function(error) {
-		console.log('Unable to sign out from Facebook')
-	});
-}
 
 function googleSignin(){
 	var provider = new firebase.auth.GoogleAuthProvider();
@@ -66,22 +59,24 @@ function googleSignin(){
 		console.log(error.code, error.message);
 	});
 }
-function googleSignout(){
-	firebase.auth().signOut().then(function(){
-		console.log('User signed out of Google')
-	}).catch(function(error){
-		console.log('Unable to sign out from Google')
+
+function userSignout(){
+	firebase.auth().signOut().then(function() {
+		console.log("You have signed out.");
+	}, function(error) {
 	});
 }
 
 function loginUser(newUser){
-	$("#google-login, #facebook-login").hide();
+	$("#google-login, #facebook-login, #login-button").hide();
 	console.log(newUser);
 	user.loggedIn = true;
 	user.name = newUser.displayName;
 	user.avatar = newUser.photoURL;
 	user.email = newUser.email;
 	user.id = newUser.uid;
+
+	$("#logout-button, #avatar, #settings-button").fadeIn(200);
 }
 
 var refUsers = database.ref("/users");
@@ -108,8 +103,10 @@ $("#login-button").on("click", function(){
 	$("#login-options").fadeToggle(300);
 });
 
-$("#google-logout, #facebook-logout").hide();
+$("#settings-button").on("click", function(){
+	$("#settings-options").fadeToggle(300);
+});
+
 $("#facebook-login").on("click", facebookSignin);
-$("#facebook-logout").on("click", facebookSignout);
 $("#google-login").on("click", googleSignin);
-$("#google-logout").on("click", googleSignout);
+$("#logout-button").on("click", userSignout);
