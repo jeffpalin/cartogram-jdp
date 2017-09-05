@@ -17,15 +17,13 @@ body {
 	
 }
 
-span.logo-brand.center {
-	font-family: 'Kaushan Script', cursive;
-}
 .topbar {
 	/*background: rgba(250, 128, 114, 0.2);*/
 	background-color: rgba(0, 0, 0, 0)!important;
 	width: 100%;
 	position: absolute;
 	z-index: 2;
+	font-family: 'Kaushan Script', cursive;
 }
 
 /*nav ul a {
