@@ -69,8 +69,9 @@ body {
 	display: none;
 }
 
-.brand-logo{
+nav .brand-logo.center{
 	text-shadow: 1px 1px 3px #383f42;
+	font-size: 3.8rem;
 }
 
 #settings-options{
