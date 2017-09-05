@@ -22,7 +22,7 @@ var user = {
 	id: "",
 	apps: {},
 	saveHist: true,
-	history: []
+	history: {}
 }
 
 // Initialize Firebase
@@ -70,7 +70,7 @@ function checkUser(){
 		if( !snap.child(user.id).exists() ){
 			var refNew = refUsers.child(user.id);
 			refNew.set({
-				history: [],
+				history: {},
 				saveHistory: true,
 				apps: {
 					weather: true,
@@ -81,7 +81,7 @@ function checkUser(){
 		refThisUser = database.ref("/users/" + user.id);
 		getUserData();
 	});
-};
+}
 
 function getUserData(){
 	refThisUser.once("value").then(function(snap){
@@ -90,7 +90,23 @@ function getUserData(){
 		user.history = snap.val().history;
 		console.log(snap.val());
 	});
-};
+}
+
+function addHistory(location){
+	if( user.loggedIn && user.saveHist ){
+		database.ref("/users/" + user.id + "/history").push(location);
+	}
+}
+
+function showHistory(snap){
+	snap.forEach(function(child){
+		console.log(child.key, child.val());
+	});
+}
+
+database.ref("/users/" + user.id + "/history").on("value", function(snap){
+	showHistory(snap);
+});
 
 firebase.auth().onAuthStateChanged(function(logged) {
 	if (logged) {
