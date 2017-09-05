@@ -99,14 +99,23 @@ function addHistory(location){
 }
 
 function showHistory(snap){
+	var history = "";
 	snap.forEach(function(child){
-		console.log(child.key, child.val());
+		history += child.key + ":" + child.val() + " ";
 	});
+	return history;
 }
 
 database.ref("/users/" + user.id + "/history").on("child_added", function(snap){
 	showHistory(snap);
 });
+
+// debug
+function testHistory(){
+	database.ref("/users/" + user.id + "/history").once("value").then(function(snap){
+		console.log(showHistory(snap));
+	});
+}
 
 firebase.auth().onAuthStateChanged(function(logged) {
 	if (logged) {
@@ -133,6 +142,11 @@ $("#settings-button").on("click", function(){
 $("#settings-save").on("submit", function(event){
 	event.preventDefault();
 	// get values of checkboxes -> send to database
+	database.ref("/users/"+ user.id +"/apps").set({
+		weather: $("#weather-checkbox").is(':checked'),
+		farmers: $("#farmers-checkbox").is(':checked')
+	});
+
 	$("#settings-options").fadeOut(300);
 });
 
