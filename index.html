@@ -54,11 +54,19 @@
     </div>
     <div id="settings-options" class="blue-ish card">
         <form id="settings-save">
-            <label><input id="history-checkbox" type="checkbox" checked> Save my location history</label>
+            <div class="switch">
+                <label><input id="history-checkbox" type="checkbox"><span class="lever"></span> Save my location history</label>
+            </div>
             <hr>
-            <label><input id="weather-checkbox" type="checkbox"> Show Weather Widget</label>
-            <label><input id="farmers-checkbox" type="checkbox"> Show Farmer's Market Widget</label>
-            <label><input id="another-checkbox" type="checkbox"> Show Other Widget</label>
+            <div class="switch">
+                <label><input id="weather-checkbox" type="checkbox"><span class="lever"></span> Show Weather Widget</label>
+            </div>
+            <div class="switch">
+                <label><input id="farmers-checkbox" type="checkbox"><span class="lever"></span> Show Farmer's Market Widget</label>
+            </div>
+            <div class="switch">
+                <label><input id="another-checkbox" type="checkbox"><span class="lever"></span> Show Other Widget</label>
+            </div>
             <input type="submit" value="Save Settings">
         </form>
     </div>

@@ -79,7 +79,7 @@ body {
 	left: 50px;
 	z-index: 999999999;
 	padding: 14px;
-	display: none;
+	-display: none;
 }
 
 #settings-options label{
@@ -100,7 +100,7 @@ body {
 #settings-options input[type="submit"]:hover{
 	color: #383f42;
 	background: white;
-
+	-border-color: #26a69a;
 }
 
 /*nav ul a {
