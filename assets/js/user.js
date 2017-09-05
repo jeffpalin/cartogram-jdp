@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	console.log("version 0.6");
 	window.fbAsyncInit = function() {
 		FB.init ({
 			appId      : '258846137957143',
@@ -63,9 +62,26 @@ function googleSignin(){
 function userSignout(){
 	firebase.auth().signOut().then(function() {
 		console.log("You have signed out.");
+		location.reload();
 	}, function(error) {
 	});
 }
+
+firebase.auth().onAuthStateChanged(function(logged) {
+	if (logged) {
+		// user is authenticated
+		var displayName = logged.displayName;
+		var email = logged.email;
+		var emailVerified = logged.emailVerified;
+		var photoURL = logged.photoURL;
+		var isAnonymous = logged.isAnonymous;
+		var uid = logged.uid;
+		var providerData = logged.providerData;
+		console.log(displayName, email, emailVerified, photoURL, uid, providerData);
+	} else {
+
+	}
+});
 
 function loginUser(newUser){
 	$("#google-login, #facebook-login, #login-button").hide();
@@ -76,7 +92,7 @@ function loginUser(newUser){
 	user.email = newUser.email;
 	user.id = newUser.uid;
 	$("#avatar").attr("src", newUser.photoURL);
-	$("#logout-button, #avatar, #settings-button").fadeIn(200);
+	$("#logout-button, #avatar, #settings-button").fadeIn(200).css("display", "block");
 }
 
 var refUsers = database.ref("/users");
@@ -105,6 +121,12 @@ $("#login-button").on("click", function(){
 
 $("#settings-button").on("click", function(){
 	$("#settings-options").fadeToggle(300);
+});
+
+$("#settings-save").on("submit", function(event){
+	event.preventDefault();
+	// get values of checkboxes -> send to database
+	$("#settings-options").fadeOut(300);
 });
 
 $("#facebook-login").on("click", facebookSignin);
