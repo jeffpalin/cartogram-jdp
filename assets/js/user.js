@@ -144,6 +144,7 @@ $("#settings-button").on("click", function(){
 		var checkedBoxes = "";
 		checkedBoxes += snap.val().weather ? "#weather-checkbox, " : "";
 		checkedBoxes += snap.val().farmers ? "#farmers-checkbox, " : "";
+		console.log(checkedBoxes);
 		$(checkedBoxes).attr("checked", "checked");
 	});
 	$("#settings-options").fadeToggle(300);
