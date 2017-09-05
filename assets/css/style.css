@@ -13,7 +13,11 @@ body {
 	position: absolute;
 	bottom: 0;
 	z-index: 2;
+
+	
+
 	color: white;
+
 }
 
 .searchbar {
@@ -26,6 +30,9 @@ body {
 	width: 100%;
 	position: absolute;
 	z-index: 2;
+
+	font-family: 'Kaushan Script', cursive;
+
 	opacity: 1;
 	transition: 0.3s linear opacity;
 }
@@ -93,6 +100,7 @@ body {
 #settings-options input[type="submit"]:hover{
 	color: #383f42;
 	background: white;
+
 }
 
 /*nav ul a {
