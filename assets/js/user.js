@@ -142,6 +142,7 @@ $("#settings-button").on("click", function(){
 $("#settings-save").on("submit", function(event){
 	event.preventDefault();
 	// get values of checkboxes -> send to database
+	database.ref("/users/"+ user.id +"/saveHistory").set( $("#history-checkbox").is(':checked') );
 	database.ref("/users/"+ user.id +"/apps").set({
 		weather: $("#weather-checkbox").is(':checked'),
 		farmers: $("#farmers-checkbox").is(':checked')
