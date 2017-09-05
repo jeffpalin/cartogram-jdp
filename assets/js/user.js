@@ -85,10 +85,10 @@ function checkUser(){
 
 function getUserData(){
 	refThisUser.once("value").then(function(snap){
-		user.saveHist = snap.saveHistory;
-		user.apps = snap.apps;
-		user.history = snap.history;
-		console.log(snap);
+		user.saveHist = snap.val().saveHistory;
+		user.apps = snap.val().apps;
+		user.history = snap.val().history;
+		console.log(snap.val());
 	});
 };
 
