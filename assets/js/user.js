@@ -67,7 +67,7 @@ firebase.auth().onAuthStateChanged(function(logged) {
 		$("#google-login, #facebook-login, #login-button").hide();
 		$("#logout-button, #avatar, #settings-button").fadeIn(200).css("display", "block");
 	} else {
-
+		// user is not authenticated ... they shouldn't be here
 	}
 });
 
@@ -77,9 +77,12 @@ var refThisUser;
 // TODO change to once
 refUsers.on("value", function(snap){
 	// if this user already exists, pull their data
+	console.log("user: " + user.id);
 	if( snap.child(user.id).exists() ){
 		console.log("this user already exists");
 	}else{ // else add new user to database
+		console.log("this user does not exist");
+		refUsers.push()
 		var refNew = refUsers.child(user.id);
 		refNew.set({
 			history: [],
@@ -87,6 +90,7 @@ refUsers.on("value", function(snap){
 				weather: true
 			}
 		});
+
 	}
 	refThisUser = database.ref("/users/" + user.id);
 });
