@@ -79,6 +79,7 @@ function checkUser(){
 			});
 		}
 		refThisUser = database.ref("/users/" + user.id);
+		getUserData();
 	});
 };
 
@@ -99,7 +100,6 @@ firebase.auth().onAuthStateChanged(function(logged) {
 		$("#google-login, #facebook-login, #login-button").hide();
 		$("#logout-button, #avatar, #settings-button").fadeIn(200).css("display", "block");
 		checkUser();
-		getUserData();
 	} else {
 		// user is not authenticated ... they shouldn't be here
 	}
