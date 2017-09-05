@@ -62,6 +62,35 @@ body {
 	text-shadow: 1px 1px 3px #383f42;
 }
 
+#settings-options{
+	position: absolute;
+	bottom: 60px;
+	left: 50px;
+	z-index: 999999999;
+	padding: 14px;
+	-display: none;
+}
+
+#settings-options label{
+	display: block;
+	color: white;
+	font-size: 1rem;
+}
+
+#settings-options input[type="submit"]{
+	display: block;
+	color: white;
+	background: none;
+	border: 2px solid white;
+	border-radius: 4px;
+	margin: 10px auto 0;
+	transition: 0.2s linear all;
+}
+#settings-options input[type="submit"]:hover{
+	color: #383f42;
+	background: white;
+}
+
 /*nav ul a {
 	color: red;
 }*/
@@ -109,7 +138,8 @@ body {
 /* map tweaks */
 #map div div.gm-style:nth-child(1) div:nth-child(7),
 #map div div.gm-style:nth-child(1) div:nth-child(8){
-	display: none; !important;
+	-display: none; !important;
+	top: 0px;
 }
 div.gm-style div.gmnoprint:nth-child(9){
 	left: 0px !important;
