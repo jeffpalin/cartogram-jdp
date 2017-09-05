@@ -19,7 +19,10 @@ $(document).ready(function(){
 // user settings:
 var user = {
 	loggedIn: false,
-	id: ""
+	id: "",
+	apps: {},
+	saveHist: true,
+	history: []
 }
 
 // Initialize Firebase
@@ -58,6 +61,35 @@ function userSignout(){
 	});
 }
 
+var refThisUser;
+
+function checkUser(){
+	var refUsers = database.ref("/users");
+	refUsers.once("value").then(function(snap){
+		// if this user does not exist, create user
+		if( !snap.child(user.id).exists() ){
+			var refNew = refUsers.child(user.id);
+			refNew.set({
+				history: [],
+				saveHistory: true,
+				apps: {
+					weather: true,
+					farmers: true
+				}
+			});
+		}
+		refThisUser = database.ref("/users/" + user.id);
+	});
+};
+
+function getUserData(){
+	refThisUser.once("value").then(function(snap){
+		user.saveHist = snap.saveHistory;
+		user.apps = snap.apps;
+		user.history = snap.history;
+	});
+};
+
 firebase.auth().onAuthStateChanged(function(logged) {
 	if (logged) {
 		// user is authenticated
@@ -66,33 +98,11 @@ firebase.auth().onAuthStateChanged(function(logged) {
 		$("#avatar").attr("src", logged.photoURL);
 		$("#google-login, #facebook-login, #login-button").hide();
 		$("#logout-button, #avatar, #settings-button").fadeIn(200).css("display", "block");
+		checkUser();
+		getUserData();
 	} else {
 		// user is not authenticated ... they shouldn't be here
 	}
-});
-
-var refUsers = database.ref("/users");
-var refThisUser;
-
-// TODO change to once
-refUsers.on("value", function(snap){
-	// if this user already exists, pull their data
-	console.log("user: " + user.id);
-	if( snap.child(user.id).exists() ){
-		console.log("this user already exists");
-	}else{ // else add new user to database
-		console.log("this user does not exist");
-		refUsers.push()
-		var refNew = refUsers.child(user.id);
-		refNew.set({
-			history: [],
-			apps: {
-				weather: true
-			}
-		});
-
-	}
-	refThisUser = database.ref("/users/" + user.id);
 });
 
 $("#login-button").on("click", function(){
