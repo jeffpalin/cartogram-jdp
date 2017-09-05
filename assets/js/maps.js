@@ -3,11 +3,11 @@
 // 02. Location Functions
 // 03. Weather Functions
 // 04. Toolbar Animations
-// TODO: 05. Places Functions
-// 06. Farmers Market Functions 
+// 05. Farmers Market Functions
+// 06. Places Functions
 // ============================== TABLE OF CONTENTS ==============================
 
-// --------- 01. MAP FUNCTIONS ------------------
+// -------- 01. MAP FUNCTIONS --------
 // Display map on page and find location
 var map, infoWindow;
 
@@ -48,7 +48,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.open(map);
 }
 
-// --- 02. LOCATION FUNCTIONS ---
+// -------- 02. LOCATION FUNCTIONS --------
 function decodeLocation() {
     var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
     // Use google maps geolocation api to retrieve exact coordinates
@@ -80,10 +80,10 @@ function decodeLocation() {
 }
 decodeLocation();
 
-// ----------- 03. WEATHER FUNCTIONS -------------
+// -------- 03. WEATHER FUNCTIONS --------
 function getWeather() {
     var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
-    navigator.geolocation.getCurrentPosition(function (position) {
+    navigator.geolocation.getCurrentPosition(function(position) {
 
         var pos = {
             lat: position.coords.latitude,
@@ -136,54 +136,54 @@ function getWeather() {
 }
 getWeather();
 
-// -------- 04. TOOLBAR ANIMATIONS ----------
+// -------- 04. TOOLBAR ANIMATIONS --------
 // Show / hide toolbars on map click
 $('#map')
-  // Fade toolbar out on mouse down
-  .mousedown(function(){
-    // I'm gonna use css transitions for this because jQuery fades have built in timeouts that we don't want
-    $('.topbar, .toolbar').css("opacity", 0);
-    $('.card.blue-ish.darken-1').css('background-color', 'rgba(84, 110, 122, 0.35)');
-    $("#login-options, #settings-options").fadeOut();
-  });
-  // Fade toolbar in on mouse up - even if mouse up event isn't over map
-$(document).mouseup(function(){
+    // Fade toolbar out on mouse down
+    .mousedown(function() {
+        // I'm gonna use css transitions for this because jQuery fades have built in timeouts that we don't want
+        $('.topbar, .toolbar').css("opacity", 0);
+        $('.card.blue-ish.darken-1').css('background-color', 'rgba(84, 110, 122, 0.35)');
+        $("#login-options, #settings-options").fadeOut();
+    });
+// Fade toolbar in on mouse up - even if mouse up event isn't over map
+$(document).mouseup(function() {
     $('.topbar, .toolbar').css("opacity", "");
     $('.card.blue-ish.darken-1').css('background-color', '');
-  });
+});
 
 
 // -------- 05. FARMERS MARKET FUNCTIONS --------
 
-function getFarmers(lat, lng){
+function getFarmers(lat, lng) {
 
-  navigator.geolocation.getCurrentPosition(function(position){
-    var pos = {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
-    var lat = pos.lat;
-    var lng = pos.lng;
-    console.log(lat);
-    console.log(lng);    
-    var queryURL = 'https://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=' + lat + '&lng=' + lng;
-    $.ajax({
-      method: 'GET',
-      contentType: 'application/json; charset=utf-8',
-      url: queryURL,
-      dataType: 'jsonp',
-      jsonpCallback: 'detailResultsHandler'
-    }).done(function(response){
-     for (var i = 0; i < 3; i++){
-      var markets = response.results[i].marketname;
-      $('#farmersData').append('<p style="color: black;"><strong>Miles: </strong></p>' + markets + '<br>');
-     }
-  });
-});
+        var lat = pos.lat;
+        var lng = pos.lng;
+        console.log(lat);
+        console.log(lng);
+        var queryURL = 'https://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=' + lat + '&lng=' + lng;
+        $.ajax({
+            method: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            url: queryURL,
+            dataType: 'jsonp',
+            jsonpCallback: 'detailResultsHandler'
+        }).done(function(response) {
+            for (var i = 0; i < 3; i++) {
+                var markets = response.results[i].marketname;
+                $('#farmersData').append('<p style="color: black;"><strong>Miles: </strong></p>' + markets + '<br>');
+            }
+        });
+    });
 }
 getFarmers();
 
-      
+// -------- 06. PLACES (PINS) FUNCTIONS --------
 function populateLocationWidget(pos) {
     var google_places_api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
     // Structure URL
@@ -193,7 +193,7 @@ function populateLocationWidget(pos) {
     $.ajax({
         url: queryURL,
         method: 'GET'
-    }).done(function (response) {
+    }).done(function(response) {
         // Loop through JSON object to retrieve desired response result
         for (var i = 0; i < response.results.length; i++) {
             // Define address using JSON object
@@ -205,7 +205,7 @@ function populateLocationWidget(pos) {
 }
 
 function initMapLocationPlaces() {
-    navigator.geolocation.getCurrentPosition(function (position) {
+    navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -236,13 +236,53 @@ function callback(results, status) {
 
 function createMarker(place) {
     var placeLoc = place.geometry.location;
+    console.log(placeLoc);
     var marker = new google.maps.Marker({
         map: map,
-        position: place.geometry.location
+        position: placeLoc
     });
-    google.maps.event.addListener(marker, 'click', function () {
+    google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent(place.name);
         infowindow.open(map, this);
     });
+    marker.setMap(map);
 }
 
+// Search result function
+$('#submit').on('click', function(event) {
+    event.preventDefault();
+    var pos;
+    var queryURL;
+    var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
+    var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
+    var radius = 15000;
+    var type = ['restaurant', 'store'];
+    var keyword = $('#pac-input').val().trim();
+    navigator.geolocation.getCurrentPosition(function(position) {
+        pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+        queryURL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + pos.lat + ',' + pos.lng +
+            '&radius=' + radius + '&type=' + type + '&keyword=' + keyword + '&key=' + api_key;
+        console.log(queryURL);
+        $.ajax({
+            url: apiURL,
+            data: {
+                url: queryURL
+            },
+            dataType: 'json',
+            method: 'POST'
+        }).done(function(response) {
+            for (var i = 0; i < response.data.results.length; i++) {
+                callback();
+                createMarker(response.data.results[i]);
+            }
+            map.setZoom(10);
+        });
+    });
+
+    $('#pac-input').val('');
+
+
+});
