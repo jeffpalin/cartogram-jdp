@@ -104,7 +104,7 @@ function showHistory(snap){
 	});
 }
 
-database.ref("/users/" + user.id + "/history").on("value", function(snap){
+database.ref("/users/" + user.id + "/history").on("child_added", function(snap){
 	showHistory(snap);
 });
 
