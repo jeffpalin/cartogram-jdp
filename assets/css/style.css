@@ -48,6 +48,16 @@ body {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
+/* logged in items */
+#avatar{
+	display: none;
+	height: 65px;
+	padding: 9px;
+}
+#settings-button, #logout-button{
+	display: none;
+}
+
 .brand-logo{
 	text-shadow: 1px 1px 3px #383f42;
 }
