@@ -88,6 +88,7 @@ function getUserData(){
 		user.saveHist = snap.saveHistory;
 		user.apps = snap.apps;
 		user.history = snap.history;
+		console.log(snap);
 	});
 };
 
