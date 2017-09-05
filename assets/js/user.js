@@ -136,6 +136,16 @@ $("#login-button").on("click", function(){
 });
 
 $("#settings-button").on("click", function(){
+	database.ref("/users/" + user.id + "/saveHistory").once("value").then(function(snap){
+		console.log(snap.val());
+	});
+	database.ref("/users/" + user.id + "/apps").once("value").then(function(snap){
+		$("#settings-save checkbox").attr("checked", "");
+		var checkedBoxes = "";
+		checkedBoxes += snap.val().weather ? "#weather-checkbox, " : "";
+		checkedBoxes += snap.val().farmers ? "#farmers-checkbox, " : "";
+		$(checkedBoxes).attr("checked", "checked");
+	});
 	$("#settings-options").fadeToggle(300);
 });
 
