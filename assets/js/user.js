@@ -39,9 +39,6 @@ database = firebase.database();
 function facebookSignin() {
 	var provider = new firebase.auth.FacebookAuthProvider();
 	firebase.auth().signInWithPopup(provider).then(function(result) {
-		var token = result.credential.accessToken;
-		$("#facebook-logout").show();
-		loginUser(result.user);
 	}).catch(function(error) {
 		console.log(error.code, error.message);
 	});
@@ -50,10 +47,6 @@ function facebookSignin() {
 function googleSignin(){
 	var provider = new firebase.auth.GoogleAuthProvider();
 	firebase.auth().signInWithPopup(provider).then(function (result) {
-		// This gives you a Google Access Token. You can use it to access the GitHub API.
-		var token = result.credential.accessToken;
-		$("#google-logout").show();
-		loginUser(result.user);
 	}).catch(function (error) {
 		console.log(error.code, error.message);
 	});
@@ -70,30 +63,18 @@ function userSignout(){
 firebase.auth().onAuthStateChanged(function(logged) {
 	if (logged) {
 		// user is authenticated
-		var displayName = logged.displayName;
-		var email = logged.email;
-		var emailVerified = logged.emailVerified;
-		var photoURL = logged.photoURL;
-		var isAnonymous = logged.isAnonymous;
-		var uid = logged.uid;
-		var providerData = logged.providerData;
-		console.log(displayName, email, emailVerified, photoURL, uid, providerData);
+		user.loggedIn = true;
+		user.name = logged.displayName;
+		user.email = logged.email;
+		user.avatar = logged.photoURL;
+		user.id = logged.uid;
+		$("#avatar").attr("src", newUser.photoURL);
+		$("#google-login, #facebook-login, #login-button").hide();
+		$("#logout-button, #avatar, #settings-button").fadeIn(200).css("display", "block");
 	} else {
 
 	}
 });
-
-function loginUser(newUser){
-	$("#google-login, #facebook-login, #login-button").hide();
-	console.log(newUser);
-	user.loggedIn = true;
-	user.name = newUser.displayName;
-	user.avatar = newUser.photoURL;
-	user.email = newUser.email;
-	user.id = newUser.uid;
-	$("#avatar").attr("src", newUser.photoURL);
-	$("#logout-button, #avatar, #settings-button").fadeIn(200).css("display", "block");
-}
 
 var refUsers = database.ref("/users");
 var refThisUser;

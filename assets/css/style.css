@@ -68,7 +68,7 @@ body {
 	left: 50px;
 	z-index: 999999999;
 	padding: 14px;
-	-display: none;
+	display: none;
 }
 
 #settings-options label{
