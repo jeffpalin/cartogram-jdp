@@ -31,6 +31,9 @@ function getResults(lat, lng) {
     console.log(marketName2);
     console.log(marketName3);
 
+    $("#farmersMarket1").text(marketName1);
+    $("#farmersMarket2").text(marketName2);
+    $("#farmersMarket3").text(marketName3);
     });
 };
 
