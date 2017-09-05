@@ -75,7 +75,7 @@ function loginUser(newUser){
 	user.avatar = newUser.photoURL;
 	user.email = newUser.email;
 	user.id = newUser.uid;
-
+	$("#avatar").attr("src", newUser.photoURL);
 	$("#logout-button, #avatar, #settings-button").fadeIn(200);
 }
 
