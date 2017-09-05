@@ -19,9 +19,7 @@ $(document).ready(function(){
 // user settings:
 var user = {
 	loggedIn: false,
-	name: "",
-	avatar: "",
-	email: ""
+	id: ""
 }
 
 // Initialize Firebase
@@ -64,11 +62,8 @@ firebase.auth().onAuthStateChanged(function(logged) {
 	if (logged) {
 		// user is authenticated
 		user.loggedIn = true;
-		user.name = logged.displayName;
-		user.email = logged.email;
-		user.avatar = logged.photoURL;
 		user.id = logged.uid;
-		$("#avatar").attr("src", newUser.photoURL);
+		$("#avatar").attr("src", logged.photoURL);
 		$("#google-login, #facebook-login, #login-button").hide();
 		$("#logout-button, #avatar, #settings-button").fadeIn(200).css("display", "block");
 	} else {
@@ -83,10 +78,10 @@ var refThisUser;
 refUsers.on("value", function(snap){
 	// if this user already exists, pull their data
 	if( snap.child(user.id).exists() ){
-		// authentication is pointless if it lives on the frontend like this
+		console.log("this user already exists");
 	}else{ // else add new user to database
-		var player2Ref = refPlayers.child(user.id);
-		player2Ref.set({
+		var refNew = refUsers.child(user.id);
+		refNew.set({
 			history: [],
 			apps: {
 				weather: true
