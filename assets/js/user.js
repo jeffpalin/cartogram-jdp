@@ -1,20 +1,23 @@
-$(document).ready(function(){
-	window.fbAsyncInit = function() {
-		FB.init ({
-			appId      : '258846137957143',
-			xfbml      : true,
-			version    : 'v2.6'
+ $(document).ready(function () {
+	window.fbAsyncInit = function () {
+		FB.init({
+			appId: '258846137957143',
+			xfbml: true,
+			version: 'v2.6'
 		});
 	};
 
-	(function(d, s, id) {
+	(function (d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) {return;}
-		js = d.createElement(s); js.id = id;
+		if (d.getElementById(id)) {
+			return;
+		}
+		js = d.createElement(s);
+		js.id = id;
 		js.src = "//connect.facebook.net/en_US/sdk.js";
 		fjs.parentNode.insertBefore(js, fjs);
-	} (document, 'script', 'facebook-jssdk'));
-});
+	}(document, 'script', 'facebook-jssdk'));
+}); 
 
 // user settings:
 var user = {
@@ -33,41 +36,38 @@ var config = {
 	projectId: "cartogram-users",
 	storageBucket: "cartogram-users.appspot.com",
 	messagingSenderId: "87773780260"
-	};
+};
 firebase.initializeApp(config);
 database = firebase.database();
 
 function facebookSignin() {
 	var provider = new firebase.auth.FacebookAuthProvider();
-	firebase.auth().signInWithPopup(provider).then(function(result) {
-	}).catch(function(error) {
+	firebase.auth().signInWithPopup(provider).then(function (result) {}).catch(function (error) {
 		console.log(error.code, error.message);
 	});
 }
 
-function googleSignin(){
+function googleSignin() {
 	var provider = new firebase.auth.GoogleAuthProvider();
-	firebase.auth().signInWithPopup(provider).then(function (result) {
-	}).catch(function (error) {
+	firebase.auth().signInWithPopup(provider).then(function (result) {}).catch(function (error) {
 		console.log(error.code, error.message);
 	});
 }
 
-function userSignout(){
-	firebase.auth().signOut().then(function() {
+function userSignout() {
+	firebase.auth().signOut().then(function () {
 		console.log("You have signed out.");
 		location.reload();
-	}, function(error) {
-	});
+	}, function (error) {});
 }
 
 var refThisUser;
 
-function checkUser(){
+function checkUser() {
 	var refUsers = database.ref("/users");
-	refUsers.once("value").then(function(snap){
+	refUsers.once("value").then(function (snap) {
 		// if this user does not exist, create user
-		if( !snap.child(user.id).exists() ){
+		if (!snap.child(user.id).exists()) {
 			var refNew = refUsers.child(user.id);
 			refNew.set({
 				history: {},
@@ -83,8 +83,8 @@ function checkUser(){
 	});
 }
 
-function getUserData(){
-	refThisUser.once("value").then(function(snap){
+function getUserData() {
+	refThisUser.once("value").then(function (snap) {
 		user.saveHist = snap.val().saveHistory;
 		user.apps = snap.val().apps;
 		user.history = snap.val().history;
@@ -92,32 +92,32 @@ function getUserData(){
 	});
 }
 
-function addHistory(location){
-	if( user.loggedIn && user.saveHist ){
+function addHistory(location) {
+	if (user.loggedIn && user.saveHist) {
 		database.ref("/users/" + user.id + "/history").push(location);
 	}
 }
 
-function showHistory(snap){
+function showHistory(snap) {
 	var history = "";
-	snap.forEach(function(child){
+	snap.forEach(function (child) {
 		history += child.key + ":" + child.val() + " ";
 	});
 	return history;
 }
 
-database.ref("/users/" + user.id + "/history").on("child_added", function(snap){
+database.ref("/users/" + user.id + "/history").on("child_added", function (snap) {
 	showHistory(snap);
 });
 
 // debug
-function testHistory(){
-	database.ref("/users/" + user.id + "/history").once("value").then(function(snap){
+function testHistory() {
+	database.ref("/users/" + user.id + "/history").once("value").then(function (snap) {
 		console.log(showHistory(snap));
 	});
 }
 
-firebase.auth().onAuthStateChanged(function(logged) {
+firebase.auth().onAuthStateChanged(function (logged) {
 	if (logged) {
 		// user is authenticated
 		user.loggedIn = true;
@@ -131,19 +131,19 @@ firebase.auth().onAuthStateChanged(function(logged) {
 	}
 });
 
-$("#login-button").on("click", function(){
+$("#login-button").on("click", function () {
 	$("#login-options").fadeToggle(300);
 });
 
-$("#settings-button").on("click", function(){
+$("#settings-button").on("click", function () {
 	$("#settings-options").fadeToggle(300);
 });
 
-$("#settings-save").on("submit", function(event){
+$("#settings-save").on("submit", function (event) {
 	event.preventDefault();
 	// get values of checkboxes -> send to database
-	database.ref("/users/"+ user.id +"/saveHistory").set( $("#history-checkbox").is(':checked') );
-	database.ref("/users/"+ user.id +"/apps").set({
+	database.ref("/users/" + user.id + "/saveHistory").set($("#history-checkbox").is(':checked'));
+	database.ref("/users/" + user.id + "/apps").set({
 		weather: $("#weather-checkbox").is(':checked'),
 		farmers: $("#farmers-checkbox").is(':checked')
 	});
