@@ -14,7 +14,8 @@ var map, infoWindow;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: -34.397, lng: 150.644 },
-        zoom: 6
+        zoom: 6,
+        mapTypeId: 'terrain'
     });
     infoWindow = new google.maps.InfoWindow;
 
@@ -75,6 +76,7 @@ function decodeLocation() {
                 // Write address to page
                 $('#location').html(address);
             }
+            map.panTo(pos);
         });
     });
 }
@@ -84,7 +86,6 @@ decodeLocation();
 function getWeather() {
     var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
     navigator.geolocation.getCurrentPosition(function(position) {
-
         var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -211,7 +212,8 @@ function initMapLocationPlaces() {
         populateLocationWidget(pos);
         map = new google.maps.Map(document.getElementById('map'), {
             center: pos,
-            zoom: 15
+            zoom: 15, 
+            mapTypeId: 'terrain'
         });
 
         infowindow = new google.maps.InfoWindow();
@@ -219,7 +221,7 @@ function initMapLocationPlaces() {
         service.nearbySearch({
             location: pos,
             radius: 500,
-            type: ['store']
+            type: ['store', 'restaurant']
         }, callback);
     }); // need to add error handling. what if you never got the location? What will you do
 }
@@ -240,7 +242,8 @@ function createMarker(place) {
         position: placeLoc
     });
     google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(place.name);
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + 
+            place.opening_hours + '</div>');
         infowindow.open(map, this);
     });
     marker.setMap(map);
@@ -253,7 +256,7 @@ $('#submit').on('click', function(event) {
     var queryURL;
     var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
     var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
-    var radius = 15000;
+    var radius = 5000;
     var type = ['restaurant', 'store'];
     var keyword = $('#pac-input').val().trim();
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -277,11 +280,17 @@ $('#submit').on('click', function(event) {
                 callback();
                 createMarker(response.data.results[i]);
             }
-            map.setZoom(10);
+            map.setZoom(7);
         });
     });
-
     $('#pac-input').val('');
-
-
 });
+
+// Map Marker Recenter Function
+$('#mapMarker').on('click', function(){
+    decodeLocation();
+});
+
+
+
+
