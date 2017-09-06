@@ -264,6 +264,7 @@ $('#submit').on('click', function(event) {
         queryURL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + pos.lat + ',' + pos.lng +
             '&radius=' + radius + '&type=' + type + '&keyword=' + keyword + '&key=' + api_key;
         console.log(queryURL);
+        addHistory(keyword);
         $.ajax({
             url: apiURL,
             data: {
