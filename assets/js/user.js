@@ -42,7 +42,10 @@ database = firebase.database();
 
 function facebookSignin() {
 	var provider = new firebase.auth.FacebookAuthProvider();
-	firebase.auth().signInWithPopup(provider).then(function (result) {}).catch(function (error) {
+	firebase.auth().signInWithPopup(provider).then(function(result) {
+		var token = result.credential.accessToken;
+	}).catch(function(error) {
+
 		console.log(error.code, error.message);
 	});
 }
@@ -88,7 +91,7 @@ function getUserData() {
 		user.saveHist = snap.val().saveHistory;
 		user.apps = snap.val().apps;
 		user.history = snap.val().history;
-		console.log(snap.val());
+		pickWidgets(user.apps);
 	});
 }
 
@@ -110,14 +113,38 @@ database.ref("/users/" + user.id + "/history").on("child_added", function (snap)
 	showHistory(snap);
 });
 
+
 // debug
 function testHistory() {
 	database.ref("/users/" + user.id + "/history").once("value").then(function (snap) {
-		console.log(showHistory(snap));
-	});
+=======
+
+
+// display only the selected widgets
+function pickWidgets(appsList){
+	if( appsList === undefined ){
+		database.ref("/users/" + user.id + "/apps").once("value").then(function(snap) {
+			var showApps = "#location-widget";
+			showApps += snap.val().weather ? ", #weather-widget" : "";
+			showApps += snap.val().farmers ? ", #farmers-widget" : "";
+			$(".widget").hide();
+			$(showApps).show();
+		}, function(errorObject) {
+		  console.log("The read failed: " + errorObject.code);
+		});		
+	}else{
+		var showApps = "#location-widget";
+		showApps += appsList.weather ? ", #weather-widget" : "";
+		showApps += appsList.farmers ? ", #farmers-widget" : "";
+		$(".widget").hide();
+		$(showApps).show();		
+	}
 }
 
-firebase.auth().onAuthStateChanged(function (logged) {
+
+
+firebase.auth().onAuthStateChanged(function(logged) {
+
 	if (logged) {
 		// user is authenticated
 		user.loggedIn = true;
@@ -135,7 +162,18 @@ $("#login-button").on("click", function () {
 	$("#login-options").fadeToggle(300);
 });
 
-$("#settings-button").on("click", function () {
+$("#settings-button").on("click", function(){
+	var checkedBoxes = "#nonexistent";
+	database.ref("/users/" + user.id + "/saveHistory").once("value").then(function(snap){
+		checkedBoxes += snap.val() ? ", #history-checkbox" : "";
+	});
+	database.ref("/users/" + user.id + "/apps").once("value").then(function(snap){
+		$("#settings-save checkbox").attr("checked", "");
+		checkedBoxes += snap.val().weather ? ", #weather-checkbox" : "";
+		checkedBoxes += snap.val().farmers ? ", #farmers-checkbox" : "";
+		$(checkedBoxes).attr("checked", "checked");
+	});
+
 	$("#settings-options").fadeToggle(300);
 });
 
@@ -147,7 +185,7 @@ $("#settings-save").on("submit", function (event) {
 		weather: $("#weather-checkbox").is(':checked'),
 		farmers: $("#farmers-checkbox").is(':checked')
 	});
-
+	pickWidgets();
 	$("#settings-options").fadeOut(300);
 });
 
