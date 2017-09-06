@@ -13,11 +13,7 @@ body {
 	position: absolute;
 	bottom: 0;
 	z-index: 2;
-
-	
-
 	color: white;
-
 }
 
 .searchbar {
@@ -30,9 +26,7 @@ body {
 	width: 100%;
 	position: absolute;
 	z-index: 2;
-
 	font-family: 'Kaushan Script', cursive;
-
 	opacity: 1;
 	transition: 0.3s linear background-color;
 }
@@ -69,7 +63,8 @@ body {
 	height: 65px;
 	padding: 9px;
 }
-#settings-button, #logout-button{
+
+#settings-button, #logout-button, #history-button, #history-bar{
 	display: none;
 }
 
@@ -120,7 +115,7 @@ nav .brand-logo.center{
 	overflow: visible;
 }
 
-#widget-bar {
+#widget-bar, #history-bar {
 	right: 10px;
 	bottom: 74px;
 	width: 350px;
@@ -130,11 +125,13 @@ nav .brand-logo.center{
 	overflow-y: scroll;
 }
 
-#widget-bar::-webkit-scrollbar {
+#widget-bar::-webkit-scrollbar,
+#history-bar::-webkit-scrollbar {
 	width: 0px;
 }
 
-#widget-bar::-webkit-scrollbar-track-piece {
+#widget-bar::-webkit-scrollbar-track-piece,
+#history-bar::-webkit-scrollbar-track-piece {
 	background-color: transparent;
 	-webkit-border-radius: 6px;
 }
