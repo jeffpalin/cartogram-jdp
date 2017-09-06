@@ -53,7 +53,8 @@ body {
 	padding: 4px 10px;
 	cursor: pointer;
 }
-#login-options div:hover{
+#login-options div:hover,
+#history-bar p:hover{
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -136,6 +137,11 @@ nav .brand-logo.center{
 	-webkit-border-radius: 6px;
 }
 
+#history-bar p{
+	padding: 6px;
+	cursor: pointer;
+}
+
 .blue-ish{
 	background-color: rgba(84, 110, 122, 0.75);
 }
@@ -144,9 +150,9 @@ nav .brand-logo.center{
 	transition: 0.2s linear background-color; 
 }
 
-.card.blue-ish.darken-1:hover {
+/* .card.blue-ish.darken-1:hover {
 	background-color: rgba(84, 110, 122, 0.45);
-}
+} */
 
 /* map tweaks */
 #map > div > div.gm-style:nth-child(1) > div.gmnoprint:nth-child(4),

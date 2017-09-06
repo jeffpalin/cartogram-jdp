@@ -146,9 +146,9 @@ $("#history-button").on("click", function(){
 	}else{
 		database.ref("/users/" + user.id + "/history").once("value").then(function(snap){
 			historyShown = true;
-			var historyHtml = "<div class='card widget blue-ish darken-1'><div class='card-content white-text'><span class='card-title'>History</span>";
+			var historyHtml = "<div class='card blue-ish darken-1'><div class='card-content white-text'><span class='card-title'>History</span>";
 			snap.forEach(function(childr){
-				historyHtml += "<p><i class='fa fa-search fa-2x'></i> " + childr.val() + "</p>";
+				historyHtml += "<p data-search='" + childr.val() + "'><i class='fa fa-search fa-1x'></i> " + childr.val() + "</p>";
 			});
 			historyHtml += "</div></div>";
 			$("#widget-bar").fadeOut();
