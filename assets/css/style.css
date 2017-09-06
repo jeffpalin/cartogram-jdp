@@ -123,7 +123,6 @@ nav .brand-logo.center{
 	position: absolute;
 	z-index: 3;
 	overflow-y: scroll;
-	color: white;
 }
 
 #widget-bar::-webkit-scrollbar,
