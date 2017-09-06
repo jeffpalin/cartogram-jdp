@@ -50,3 +50,4 @@ function getWeather(lat, lng) {
       console.log("Weather Icon: ", weatherIcon);
   });
 };
+
