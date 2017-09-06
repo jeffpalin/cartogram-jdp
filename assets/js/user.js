@@ -102,7 +102,7 @@ function addHistory(location) {
 }
 
 function showHistory(snap){
-	showHistory = true;
+	historyShown = true;
 	var historyHtml = "<div class='card widget blue-ish darken-1'><div class='card-content white-text'><span class='card-title'>History</span>";
 	snap.forEach(function(child){
 		historyHtml += "<p><i class='fa fa-search fa-2x'></i> " + child.val() + "</p>";
