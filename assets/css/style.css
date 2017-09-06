@@ -152,33 +152,34 @@ nav .brand-logo.center{
 }
 
 /* map tweaks */
-#map div div.gm-style:nth-child(1) div:nth-child(1),
-#map div div.gm-style:nth-child(1) div:nth-child(2){
+#map > div > div.gm-style:nth-child(1) > div.gmnoprint:nth-child(4),
+#map > div > div.gm-style:nth-child(1) > div.gmnoprint:nth-child(6),
+#map > div > div.gm-style:nth-child(1) > div:nth-child(2){
 	bottom: 62px !important;
 }
-#map div div.gm-style:nth-child(1) div:nth-child(7),
-#map div div.gm-style:nth-child(1) div:nth-child(8){
-	-display: none; !important;
+#map > div > div.gm-style:nth-child(1) > div:nth-child(7),
+#map > div > div.gm-style:nth-child(1) > div:nth-child(8){
+	display: none;
 	top: 0px;
 }
-div.gm-style div.gmnoprint:nth-child(9){
+div.gm-style > div.gmnoprint:nth-child(9){
 	left: 0px !important;
 	bottom: 177px !important;
 }
-div.gm-style div.gmnoprint:nth-child(11){
+div.gm-style > div.gmnoprint:nth-child(11){
 	top: 63px !important;
 }
 
 /* streetview */ 
-#map div div.gm-style:nth-child(2) div:nth-child(7){
+#map > div > div.gm-style:nth-child(2) > div:nth-child(7){
 	display: none !important;
 }
-#map div div.gm-style:nth-child(2) div:nth-child(8){
+#map > div > div.gm-style:nth-child(2) > div:nth-child(8){
 	left: 0px !important;
 	bottom: 119px !important;
 }
-#map div div.gm-style:nth-child(2) div:nth-child(9), 
-#map div div.gm-style:nth-child(2) div:nth-child(10){
+#map > div > div.gm-style:nth-child(2) > div:nth-child(9), 
+#map > div > div.gm-style:nth-child(2) > div:nth-child(10){
 	top: 63px !important;
 }
 div.gm-style div div.gm-iv-address{
@@ -210,14 +211,15 @@ div.gm-style div div.gm-iv-address{
 		left: 2%
 	}
 	/* map hacks */
-	#map div div.gm-style:nth-child(1) div:nth-child(1),
-	#map div div.gm-style:nth-child(1) div:nth-child(2){
+	#map > div > div.gm-style:nth-child(1) > div.gmnoprint:nth-child(4),
+	#map > div > div.gm-style:nth-child(1) > div.gmnoprint:nth-child(6),
+	#map > div > div.gm-style:nth-child(1) > div:nth-child(2){
 		bottom: 50vh !important;
 	}
-	div.gm-style div.gmnoprint:nth-child(9){
+	div.gm-style > div.gmnoprint:nth-child(9){
 		display: none;
 	}
-	div.gm-style div.gmnoprint:nth-child(11){
+	div.gm-style > div.gmnoprint:nth-child(11){
 		top: 53px !important;
 	}
 }
