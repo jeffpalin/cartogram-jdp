@@ -101,17 +101,6 @@ function addHistory(location) {
 	}
 }
 
-function showHistory(snap){
-	historyShown = true;
-	var historyHtml = "<div class='card widget blue-ish darken-1'><div class='card-content white-text'><span class='card-title'>History</span>";
-	snap.forEach(function(child){
-		historyHtml += "<p><i class='fa fa-search fa-2x'></i> " + child.val() + "</p>";
-	});
-	historyHtml += "</div></div>";
-	$("#widget-bar").fadeOut();
-	$("#history-bar").html(historyHtml).fadeIn();
-}
-
 // display only the selected widgets
 function pickWidgets(appsList){
 	if( appsList === undefined ){
@@ -156,7 +145,14 @@ $("#history-button").on("click", function(){
 		historyShown = false;
 	}else{
 		database.ref("/users/" + user.id + "/history").once("value").then(function(snap){
-			showHistory(snap);
+			historyShown = true;
+			var historyHtml = "<div class='card widget blue-ish darken-1'><div class='card-content white-text'><span class='card-title'>History</span>";
+			snap.forEach(function(childr){
+				historyHtml += "<p><i class='fa fa-search fa-2x'></i> " + childr.val() + "</p>";
+			});
+			historyHtml += "</div></div>";
+			$("#widget-bar").fadeOut();
+			$("#history-bar").html(historyHtml).fadeIn();
 		});
 	}
 });
