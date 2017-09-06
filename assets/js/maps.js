@@ -276,11 +276,12 @@ $('#submit').on('click', function(event) {
             dataType: 'json',
             method: 'POST'
         }).done(function(response) {
+            map.clear();
             for (var i = 0; i < response.data.results.length; i++) {
                 callback();
                 createMarker(response.data.results[i]);
             }
-            map.setZoom(7);
+            map.setZoom(12);
         });
     });
     $('#pac-input').val('');
