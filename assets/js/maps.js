@@ -1,58 +1,13 @@
 // ============================== TABLE OF CONTENTS ==============================
-// 01. Map Functions
-// 02. Location Functions
-// 03. Weather Functions
-// 04. Toolbar Animations
-// 05. Farmers Market Functions
-// 06. Places Functions
+// 01. Location Functions
+// 02. Weather Functions
+// 03. Toolbar Animations
+// 04. Farmers Market Functions
+// 05. Places Functions
 // ============================== TABLE OF CONTENTS ==============================
 
-// -------- 01. MAP FUNCTIONS --------
-// Display map on page and find location
-var map, infoWindow;
 
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-            lat: -34.397,
-            lng: 150.644
-        },
-        zoom: 6,
-        mapTypeId: 'terrain'
-    });
-    infoWindow = new google.maps.InfoWindow;
-
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-
-
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('You');
-            infoWindow.open(map);
-            map.setCenter(pos);
-        }, function () {
-            handleLocationError(true, infoWindow, map.getCenter());
-        });
-    } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-    }
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-        'Error: The Geolocation service failed.' :
-        'Error: Your browser doesn\'t support geolocation.');
-    infoWindow.open(map);
-}
-
-// -------- 02. LOCATION FUNCTIONS --------
+// -------- 01. LOCATION FUNCTIONS --------
 function decodeLocation() {
     var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
     // Use google maps geolocation api to retrieve exact coordinates
@@ -83,9 +38,8 @@ function decodeLocation() {
         });
     });
 }
-decodeLocation();
 
-// -------- 03. WEATHER FUNCTIONS --------
+// -------- 02. WEATHER FUNCTIONS --------
 function getWeather() {
     var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -140,7 +94,7 @@ function getWeather() {
 }
 getWeather();
 
-// -------- 04. TOOLBAR ANIMATIONS --------
+// -------- 03. TOOLBAR ANIMATIONS --------
 // Show / hide toolbars on map click
 $('#map')
     // Fade toolbar out on mouse down
@@ -155,7 +109,7 @@ $(document).mouseup(function () {
 });
 
 
-// -------- 05. FARMERS MARKET FUNCTIONS --------
+// -------- 04. FARMERS MARKET FUNCTIONS --------
 
 function getFarmers(lat, lng) {
 
@@ -185,7 +139,8 @@ function getFarmers(lat, lng) {
 }
 getFarmers();
 
-// -------- 06. PLACES (PINS) FUNCTIONS --------
+// -------- 05. PLACES (PINS) FUNCTIONS --------
+// Display address in widget
 function populateLocationWidget(pos) {
     var google_places_api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
     // Structure URL
@@ -206,6 +161,7 @@ function populateLocationWidget(pos) {
     });
 }
 
+// Map with pins
 function initMapLocationPlaces() {
     navigator.geolocation.getCurrentPosition(function (position) {
         var pos = {
@@ -237,13 +193,34 @@ function callback(results, status) {
     }
 }
 
+var gmarkers = [];
+
 function createMarker(place) {
+    var marker;
     var placeLoc = place.geometry.location;
-    console.log(placeLoc);
-    var marker = new google.maps.Marker({
+    marker = new google.maps.Marker({
         map: map,
         position: placeLoc
     });
+
+    gmarkers.push(marker);
+    console.log(gmarkers);
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + 
+            place.opening_hours + '</div>');
+        infowindow.open(map, this);
+    });
+    // marker.setMap(map);
+}
+
+function clearMarkers() {
+    for (var i = 0; i < gmarkers.length; i++) {
+        if (gmarkers[i].setMap) {
+            gmarkers[i].setMap(null);
+        }
+    }
+    gmarkers = [];
+
 
     function toggleBounce() {
         if (marker.getAnimation() !== null) {
@@ -265,6 +242,7 @@ function createMarker(place) {
 
 
     marker.addListener('click', toggleBounce);
+
 }
 
 
@@ -273,6 +251,7 @@ function createMarker(place) {
 // Search result function
 $('#submit').on('click', function (event) {
     event.preventDefault();
+    clearMarkers();
     var pos;
     var queryURL;
     var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
@@ -296,13 +275,14 @@ $('#submit').on('click', function (event) {
             },
             dataType: 'json',
             method: 'POST'
-        }).done(function (response) {
-            map.clear();
+
+        }).done(function(response) {
+            map.setZoom(12);
+
             for (var i = 0; i < response.data.results.length; i++) {
-                callback();
                 createMarker(response.data.results[i]);
             }
-            map.setZoom(12);
+            
         });
     });
     $('#pac-input').val('');
