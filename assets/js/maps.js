@@ -64,7 +64,6 @@ function decodeLocation() {
         };
         // Define latlng parameter using a variable
         var latlng = pos.lat + ',' + pos.lng;
-        console.log(latlng);
         // Structure URL
         var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&result_type=street_address' + '&key=' + api_key;
         // Begin ajax call 
@@ -166,8 +165,6 @@ function getFarmers(lat, lng) {
         };
         var lat = pos.lat;
         var lng = pos.lng;
-        console.log(lat);
-        console.log(lng);
         var queryURL = 'https://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=' + lat + '&lng=' + lng;
         $.ajax({
             method: 'GET',
@@ -239,7 +236,6 @@ function callback(results, status) {
 
 function createMarker(place) {
     var placeLoc = place.geometry.location;
-    console.log(placeLoc);
     var marker = new google.maps.Marker({
         map: map,
         position: placeLoc
@@ -255,15 +251,10 @@ function createMarker(place) {
             infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
                 place.opening_hours + '</div>');
             infowindow.open(map, this);
-            
+
         });
     }
-
     marker.setMap(map);
-
-
-
-
     marker.addListener('click', toggleBounce);
 }
 
