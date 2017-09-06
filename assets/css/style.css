@@ -122,10 +122,9 @@ nav .brand-logo.center{
 
 #widget-bar {
 	right: 10px;
-	bottom: 70px;
+	bottom: 65px;
 	width: 350px;
-	max-height: calc(100vh - 140px);
-	margin-bottom: 25px;
+	max-height: calc(100vh - 138px);
 	position: absolute;
 	z-index: 3;
 	overflow: scroll;
@@ -199,7 +198,6 @@ div.gm-style div div.gm-iv-address{
 		width: 100%;
 		padding: 0px 5px;
 		height: 50vh;
-		margin-bottom: 0;
 	}
 	#login-options, #settings-options{
 		bottom: auto;
