@@ -102,19 +102,15 @@ function addHistory(location) {
 }
 
 function showHistory(snap){
-	var historyHtml = "<div class='card widget blue-ish darken-1'><span class='card-title'>Location</span>";
+	showHistory = true;
+	var historyHtml = "<div class='card widget blue-ish darken-1'><span class='card-title'>History</span>";
 	snap.forEach(function(child){
 		historyHtml += "<p><i class='fa fa-search fa-2x'></i> " + child.val() + "</p>";
-
 	});
 	historyHtml += "</div>";
 	$("#widget-bar").fadeOut();
 	$("#history-bar").html(historyHtml).fadeIn();
 }
-
-database.ref("/users/" + user.id + "/history").on("child_added", function (snap) {
-	showHistory(snap);
-});
 
 // display only the selected widgets
 function pickWidgets(appsList){
@@ -152,7 +148,7 @@ firebase.auth().onAuthStateChanged(function(logged) {
 	}
 });
 
-var historyShown;
+var historyShown = false;
 $("#history-button").on("click", function(){
 	if( historyShown ){
 		$("#widget-bar").fadeIn();

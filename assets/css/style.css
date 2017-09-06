@@ -21,8 +21,8 @@ body {
 }
 
 .topbar, .toolbar {
-	/*background: rgba(250, 128, 114, 0.2);*/
-	background-color: rgba(84, 110, 122, 0.75);
+	/*background: rgba(250, 128, 114, 0.2);
+	background-color: rgba(84, 110, 122, 0.75);*/
 	width: 100%;
 	position: absolute;
 	z-index: 2;
@@ -123,6 +123,7 @@ nav .brand-logo.center{
 	position: absolute;
 	z-index: 3;
 	overflow-y: scroll;
+	color: white;
 }
 
 #widget-bar::-webkit-scrollbar,
