@@ -101,24 +101,20 @@ function addHistory(location) {
 	}
 }
 
-function showHistory(snap) {
-	var history = "";
-	snap.forEach(function (child) {
-		history += child.key + ":" + child.val() + " ";
+function showHistory(snap){
+	var historyHtml = "<div class='card widget blue-ish darken-1'><span class='card-title'>Location</span>";
+	snap.forEach(function(child){
+		historyHtml += "<p><i class="fa fa-search fa-2x"></i> " + child.val() + "</p>";
+
 	});
-	return history;
+	historyHtml += "</div>";
+	$("#widget-bar").fadeOut();
+	$("#history-bar").html(historyHtml).fadeIn();
 }
 
 database.ref("/users/" + user.id + "/history").on("child_added", function (snap) {
 	showHistory(snap);
 });
-
-
-// debug
-function testHistory() {
-	database.ref("/users/" + user.id + "/history").once("value").then(function (snap) {
-=======
-
 
 // display only the selected widgets
 function pickWidgets(appsList){
@@ -141,8 +137,6 @@ function pickWidgets(appsList){
 	}
 }
 
-
-
 firebase.auth().onAuthStateChanged(function(logged) {
 
 	if (logged) {
@@ -151,14 +145,27 @@ firebase.auth().onAuthStateChanged(function(logged) {
 		user.id = logged.uid;
 		$("#avatar").attr("src", logged.photoURL);
 		$("#google-login, #facebook-login, #login-button").hide();
-		$("#logout-button, #avatar, #settings-button").fadeIn(200).css("display", "block");
+		$("#logout-button, #avatar, #settings-button, #history-button").fadeIn(200).css("display", "block");
 		checkUser();
 	} else {
 		// user is not authenticated ... they shouldn't be here
 	}
 });
 
-$("#login-button").on("click", function () {
+var historyShown;
+$("#history-button").on("click", function(){
+	if( historyShown ){
+		$("#widget-bar").fadeIn();
+		$("#history-bar").fadeOut();
+	}else{
+		database.ref("/users/" + user.id + "/history").on("child_added", function(snap){
+			showHistory(snap);
+		});
+	}
+});
+
+$("#login-button").on("click", function(){
+
 	$("#login-options").fadeToggle(300);
 });
 
