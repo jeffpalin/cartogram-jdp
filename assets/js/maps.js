@@ -6,11 +6,12 @@
 // 05. Places Functions
 // ============================== TABLE OF CONTENTS ==============================
 
-// -------- 02. LOCATION FUNCTIONS --------
+
+// -------- 01. LOCATION FUNCTIONS --------
 function decodeLocation() {
     var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
     // Use google maps geolocation api to retrieve exact coordinates
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function (position) {
         // Position object, includes latitude and longitude
         var pos = {
             lat: position.coords.latitude,
@@ -25,7 +26,7 @@ function decodeLocation() {
         $.ajax({
             url: queryURL,
             method: 'GET'
-        }).done(function(response) {
+        }).done(function (response) {
             // Loop through JSON object to retrieve desired response result
             for (var i = 0; i < response.results.length; i++) {
                 // Define address using JSON object
@@ -38,10 +39,10 @@ function decodeLocation() {
     });
 }
 
-// -------- 03. WEATHER FUNCTIONS --------
+// -------- 02. WEATHER FUNCTIONS --------
 function getWeather() {
     var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function (position) {
         var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -64,7 +65,7 @@ function getWeather() {
             url: queryURL,
             method: 'GET',
             data: data
-        }).done(function(response) {
+        }).done(function (response) {
             // Loop through JSON response object
             for (var i = 0; i < response.weather.length; i++) {
                 //Weather Icon Code
@@ -93,26 +94,26 @@ function getWeather() {
 }
 getWeather();
 
-// -------- 04. TOOLBAR ANIMATIONS --------
+// -------- 03. TOOLBAR ANIMATIONS --------
 // Show / hide toolbars on map click
 $('#map')
     // Fade toolbar out on mouse down
-    .mousedown(function() {
+    .mousedown(function () {
         // I'm gonna use css transitions for this because jQuery fades have built in timeouts that we don't want
-        $('.topbar, .toolbar, .card.blue-ish.darken-1').css('background-color', 'rgba(84, 110, 122, 0.35)');
+        $('.blue-ish').css('background-color', 'rgba(84, 110, 122, 0.35)');
         $("#login-options, #settings-options").fadeOut();
     });
 // Fade toolbar in on mouse up - even if mouse up event isn't over map
-$(document).mouseup(function() {
-    $('.topbar, .toolbar, .card.blue-ish.darken-1').css('background-color', '');
+$(document).mouseup(function () {
+    $('.blue-ish').css('background-color', '');
 });
 
 
-// -------- 05. FARMERS MARKET FUNCTIONS --------
+// -------- 04. FARMERS MARKET FUNCTIONS --------
 
 function getFarmers(lat, lng) {
 
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function (position) {
         var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -128,7 +129,7 @@ function getFarmers(lat, lng) {
             url: queryURL,
             dataType: 'jsonp',
             jsonpCallback: 'detailResultsHandler'
-        }).done(function(response) {
+        }).done(function (response) {
             for (var i = 0; i < 3; i++) {
                 var markets = response.results[i].marketname;
                 $('#farmersData').append('<p style="color: black;"><strong>Miles: </strong></p>' + markets + '<br>');
@@ -138,7 +139,7 @@ function getFarmers(lat, lng) {
 }
 getFarmers();
 
-// -------- 06. PLACES (PINS) FUNCTIONS --------
+// -------- 05. PLACES (PINS) FUNCTIONS --------
 // Display address in widget
 function populateLocationWidget(pos) {
     var google_places_api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
@@ -149,7 +150,7 @@ function populateLocationWidget(pos) {
     $.ajax({
         url: queryURL,
         method: 'GET'
-    }).done(function(response) {
+    }).done(function (response) {
         // Loop through JSON object to retrieve desired response result
         for (var i = 0; i < response.results.length; i++) {
             // Define address using JSON object
@@ -162,7 +163,7 @@ function populateLocationWidget(pos) {
 
 // Map with pins
 function initMapLocationPlaces() {
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function (position) {
         var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -170,7 +171,7 @@ function initMapLocationPlaces() {
         populateLocationWidget(pos);
         map = new google.maps.Map(document.getElementById('map'), {
             center: pos,
-            zoom: 15, 
+            zoom: 15,
             mapTypeId: 'terrain'
         });
 
@@ -181,7 +182,7 @@ function initMapLocationPlaces() {
             radius: 500,
             type: ['store', 'restaurant']
         }, callback);
-    }); // need to add error handling. what if you never got the location? What will you do
+    });
 }
 
 function callback(results, status) {
@@ -201,6 +202,7 @@ function createMarker(place) {
         map: map,
         position: placeLoc
     });
+
     gmarkers.push(marker);
     console.log(gmarkers);
     google.maps.event.addListener(marker, 'click', function() {
@@ -218,12 +220,36 @@ function clearMarkers() {
         }
     }
     gmarkers = [];
+
+
+    function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                place.opening_hours + '</div>');
+            infowindow.open(map, this);
+            
+        });
+    }
+
+    marker.setMap(map);
+
+
+
+
+    marker.addListener('click', toggleBounce);
+
 }
 
 
 
+
 // Search result function
-$('#submit').on('click', function(event) {
+$('#submit').on('click', function (event) {
     event.preventDefault();
     clearMarkers();
     var pos;
@@ -233,7 +259,7 @@ $('#submit').on('click', function(event) {
     var radius = 5000;
     var type = ['restaurant', 'store'];
     var keyword = $('#pac-input').val().trim();
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function (position) {
         pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -249,8 +275,10 @@ $('#submit').on('click', function(event) {
             },
             dataType: 'json',
             method: 'POST'
+
         }).done(function(response) {
             map.setZoom(12);
+
             for (var i = 0; i < response.data.results.length; i++) {
                 createMarker(response.data.results[i]);
             }
@@ -261,10 +289,6 @@ $('#submit').on('click', function(event) {
 });
 
 // Map Marker Recenter Function
-$('#mapMarker').on('click', function(){
+$('#mapMarker').on('click', function () {
     decodeLocation();
 });
-
-
-
-

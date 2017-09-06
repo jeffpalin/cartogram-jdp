@@ -13,11 +13,7 @@ body {
 	position: absolute;
 	bottom: 0;
 	z-index: 2;
-
-	
-
 	color: white;
-
 }
 
 .searchbar {
@@ -25,14 +21,12 @@ body {
 }
 
 .topbar, .toolbar {
-	/*background: rgba(250, 128, 114, 0.2);*/
-	background-color: rgba(84, 110, 122, 0.75);
+	/*background: rgba(250, 128, 114, 0.2);
+	background-color: rgba(84, 110, 122, 0.75);*/
 	width: 100%;
 	position: absolute;
 	z-index: 2;
-
 	font-family: 'Kaushan Script', cursive;
-
 	opacity: 1;
 	transition: 0.3s linear background-color;
 }
@@ -59,7 +53,8 @@ body {
 	padding: 4px 10px;
 	cursor: pointer;
 }
-#login-options div:hover{
+#login-options div:hover,
+#history-bar p:hover{
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -69,7 +64,8 @@ body {
 	height: 65px;
 	padding: 9px;
 }
-#settings-button, #logout-button{
+
+#settings-button, #logout-button, #history-button, #history-bar{
 	display: none;
 }
 
@@ -120,7 +116,7 @@ nav .brand-logo.center{
 	overflow: visible;
 }
 
-#widget-bar {
+#widget-bar, #history-bar {
 	right: 10px;
 	bottom: 74px;
 	width: 350px;
@@ -130,13 +126,20 @@ nav .brand-logo.center{
 	overflow-y: scroll;
 }
 
-#widget-bar::-webkit-scrollbar {
+#widget-bar::-webkit-scrollbar,
+#history-bar::-webkit-scrollbar {
 	width: 0px;
 }
 
-#widget-bar::-webkit-scrollbar-track-piece {
+#widget-bar::-webkit-scrollbar-track-piece,
+#history-bar::-webkit-scrollbar-track-piece {
 	background-color: transparent;
 	-webkit-border-radius: 6px;
+}
+
+#history-bar p{
+	padding: 6px;
+	cursor: pointer;
 }
 
 .blue-ish{
@@ -147,9 +150,9 @@ nav .brand-logo.center{
 	transition: 0.2s linear background-color; 
 }
 
-.card.blue-ish.darken-1:hover {
+/* .card.blue-ish.darken-1:hover {
 	background-color: rgba(84, 110, 122, 0.45);
-}
+} */
 
 /* map tweaks */
 #map > div > div.gm-style:nth-child(1) > div.gmnoprint:nth-child(4),
