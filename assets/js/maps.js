@@ -1,45 +1,11 @@
 // ============================== TABLE OF CONTENTS ==============================
-// 01. Location Functions
-// 02. Weather Functions
-// 03. Toolbar Animations
-// 04. Farmers Market Functions
-// 05. Places Functions
+// 01. Weather Functions
+// 02. Toolbar Animations
+// 03. Farmers Market Functions
+// 04. Places Functions
 // ============================== TABLE OF CONTENTS ==============================
 
-
-// -------- 01. LOCATION FUNCTIONS --------
-function decodeLocation() {
-    var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
-    // Use google maps geolocation api to retrieve exact coordinates
-    navigator.geolocation.getCurrentPosition(function (position) {
-        // Position object, includes latitude and longitude
-        var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-        };
-        // Define latlng parameter using a variable
-        var latlng = pos.lat + ',' + pos.lng;
-        console.log(latlng);
-        // Structure URL
-        var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&result_type=street_address' + '&key=' + api_key;
-        // Begin ajax call 
-        $.ajax({
-            url: queryURL,
-            method: 'GET'
-        }).done(function (response) {
-            // Loop through JSON object to retrieve desired response result
-            for (var i = 0; i < response.results.length; i++) {
-                // Define address using JSON object
-                var address = response.results[i].formatted_address;
-                // Write address to page
-                $('#location').html(address);
-            }
-            map.panTo(pos);
-        });
-    });
-}
-
-// -------- 02. WEATHER FUNCTIONS --------
+// -------- 01. WEATHER FUNCTIONS --------
 function getWeather() {
     var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -94,7 +60,7 @@ function getWeather() {
 }
 getWeather();
 
-// -------- 03. TOOLBAR ANIMATIONS --------
+// -------- 02. TOOLBAR ANIMATIONS --------
 // Show / hide toolbars on map click
 $('#map')
     // Fade toolbar out on mouse down
@@ -108,11 +74,8 @@ $(document).mouseup(function () {
     $('.blue-ish').css('background-color', '');
 });
 
-
-// -------- 04. FARMERS MARKET FUNCTIONS --------
-
+// -------- 03. FARMERS MARKET FUNCTIONS --------
 function getFarmers(lat, lng) {
-
     navigator.geolocation.getCurrentPosition(function (position) {
         var pos = {
             lat: position.coords.latitude,
@@ -139,7 +102,7 @@ function getFarmers(lat, lng) {
 }
 getFarmers();
 
-// -------- 05. PLACES (PINS) FUNCTIONS --------
+// -------- 04. PLACES (PINS) FUNCTIONS --------
 // Display address in widget
 function populateLocationWidget(pos) {
     var google_places_api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
@@ -290,5 +253,5 @@ $('#submit').on('click', function (event) {
 
 // Map Marker Recenter Function
 $('#mapMarker').on('click', function () {
-    decodeLocation();
+    initMapLocationPlaces();
 });
