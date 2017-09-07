@@ -128,9 +128,9 @@ firebase.auth().onAuthStateChanged(function(logged) {
 		// user is authenticated
 		user.loggedIn = true;
 		user.id = logged.uid;
-		$("#avatar").attr("src", logged.photoURL);
-		$("#google-login, #facebook-login, #login-button").hide();
-		$("#logout-button, #avatar, #settings-button, #history-button").fadeIn(200).css("display", "block");
+		$(".avatar").attr("src", logged.photoURL);
+		$("#google-login, #facebook-login, .login-button").hide();
+		$(".logout-button, .avatar, .settings-button, .history-button").fadeIn(200).css("display", "block");
 		checkUser();
 	} else {
 		// user is not authenticated ... they shouldn't be here
@@ -138,7 +138,7 @@ firebase.auth().onAuthStateChanged(function(logged) {
 });
 
 var historyShown = false;
-$("#history-button").on("click", function(){
+$(".history-button").on("click", function(){
 	if( historyShown ){
 		$("#widget-bar").fadeIn();
 		$("#history-bar").fadeOut();
@@ -157,11 +157,11 @@ $("#history-button").on("click", function(){
 	}
 });
 
-$("#login-button").on("click", function(){
+$(".login-button").on("click", function(){
 	$("#login-options").fadeToggle(300);
 });
 
-$("#settings-button").on("click", function(){
+$(".settings-button").on("click", function(){
 	var checkedBoxes = "#nonexistent";
 	database.ref("/users/" + user.id + "/saveHistory").once("value").then(function(snap){
 		checkedBoxes += snap.val() ? ", #history-checkbox" : "";
@@ -190,4 +190,4 @@ $("#settings-save").on("submit", function (event) {
 
 $("#facebook-login").on("click", facebookSignin);
 $("#google-login").on("click", googleSignin);
-$("#logout-button").on("click", userSignout);
+$(".logout-button").on("click", userSignout);

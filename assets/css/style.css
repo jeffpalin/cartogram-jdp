@@ -58,14 +58,19 @@ body {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
+ul#slide-out a{
+	text-align: center;
+	cursor: pointer;
+}
+
 /* logged in items */
-#avatar{
+.avatar{
 	display: none;
 	height: 65px;
 	padding: 9px;
 }
 
-#settings-button, #logout-button, #history-button, #history-bar{
+li>a.settings-button, li>a.logout-button, li>a.history-button, #history-bar{
 	display: none;
 }
 
@@ -191,16 +196,16 @@ div.gm-style div div.gm-iv-address{
 
 @media screen and (max-width: 600px){
 	.topbar{
-		display: none;
+		-display: none;
 	}
 	.toolbar{
-		bottom: auto;
-		overflow: visible;
+		-bottom: auto;
+		-overflow: visible;
 	}
 	.toolbar .brand-logo.center{
-		display: inline;
+		-display: inline;
 	}
-	#widget-bar{
+	#widget-bar, #history-bar{
 		bottom: 0;
 		right: 0;
 		width: 100%;
