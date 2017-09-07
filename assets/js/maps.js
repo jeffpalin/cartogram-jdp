@@ -37,7 +37,7 @@ function getWeather() {
                 //Weather Icon Code
                 var weatherIcon = response.weather[i].icon;
                 //Weather Icon Actual Image File
-                var iconImage = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
+                var iconImage = "https://openweathermap.org/img/w/" + weatherIcon + ".png";
                 // Create image div
                 var img = $('<img>');
                 // Add iconImage class
