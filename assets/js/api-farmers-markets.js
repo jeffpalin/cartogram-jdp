@@ -1,24 +1,24 @@
-$("#submitCoordinates").on("click", function(event) {
+$("#submitCoordinates").on("click", function (event) {
   event.preventDefault();
   lat = $("#lat").val();
   lng = $("#lng").val();
   getResults(lat, lng);
-  });
+});
 
 // AJAX Get based on Lat & Lng
 
 function getResults(lat, lng) {
-    urlFarmersMarkets = "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=" + lat + "&lng=" + lng;
-    console.log(urlFarmersMarkets);
+  urlFarmersMarkets = "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=" + lat + "&lng=" + lng;
+  console.log(urlFarmersMarkets);
 
-    $.ajax({
+  $.ajax({
     type: "GET",
     contentType: "application/json; charset=utf-8",
     // submit a get request to the restful service mktDetail.
     url: urlFarmersMarkets,
     dataType: 'jsonp',
     jsonpCallback: 'detailResultHandler'
-    }).done(function(response) {
+  }).done(function (response) {
     console.log(response);
 
     //Variable for Distance and Name
@@ -34,8 +34,5 @@ function getResults(lat, lng) {
     $("#farmersMarket1").text(marketName1);
     $("#farmersMarket2").text(marketName2);
     $("#farmersMarket3").text(marketName3);
-    });
+  });
 };
-
-
-

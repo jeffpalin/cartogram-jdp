@@ -20,27 +20,27 @@ body {
 	display: none;
 }
 
-.topbar, .toolbar {
+.topbar,
+.toolbar {
 	/*background: rgba(250, 128, 114, 0.2);
 	background-color: rgba(84, 110, 122, 0.75);*/
 	width: 100%;
 	position: absolute;
 	z-index: 2;
 	font-family: 'Kaushan Script', cursive;
-	opacity: 1;
-	transition: 0.3s linear background-color;
 }
 
 .toolbar {
 	bottom: 0;
 	overflow: hidden;
 }
-.toolbar .brand-logo.center{
+
+.toolbar .brand-logo.center {
 	display: none;
 	font-size: 3.4rem;
 }
 
-#login-options{
+#login-options {
 	position: absolute;
 	bottom: 60px;
 	left: 10px;
@@ -48,33 +48,50 @@ body {
 	display: none;
 }
 
-#login-options div{
+#login-options div {
 	color: white;
 	padding: 4px 10px;
 	cursor: pointer;
 }
+
 #login-options div:hover,
-#history-bar p:hover{
+#history-bar p:hover {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* logged in items */
-#avatar{
+
+#avatar {
+
+ul#slide-out a i{
+	text-align: center;
+	cursor: pointer;
+	color: #5f7c88;
+}
+
+/* logged in items */
+.avatar{
 	display: none;
 	height: 65px;
 	padding: 9px;
+	margin: auto;
 }
 
-#settings-button, #logout-button, #history-button, #history-bar{
+#settings-button,
+#logout-button,
+#history-button,
+#history-bar {
+	
+li>a.settings-button, li>a.logout-button, li>a.history-button, #history-bar{
 	display: none;
 }
 
-nav .brand-logo.center{
+nav .brand-logo.center {
 	text-shadow: 1px 1px 3px #383f42;
 	font-size: 3.8rem;
 }
 
-#settings-options{
+#settings-options {
 	position: absolute;
 	bottom: 60px;
 	left: 50px;
@@ -83,13 +100,13 @@ nav .brand-logo.center{
 	display: none;
 }
 
-#settings-options label{
+#settings-options label {
 	display: block;
 	color: white;
 	font-size: 1rem;
 }
 
-#settings-options input[type="submit"]{
+#settings-options input[type="submit"] {
 	display: block;
 	color: white;
 	background: none;
@@ -98,11 +115,13 @@ nav .brand-logo.center{
 	margin: 10px auto 0;
 	transition: 0.2s linear all;
 }
-#settings-options input[type="submit"]:hover{
+
+#settings-options input[type="submit"]:hover {
 	color: #383f42;
 	background: white;
 	-border-color: #26a69a;
 }
+
 
 /*nav ul a {
 	color: red;
@@ -116,7 +135,8 @@ nav .brand-logo.center{
 	overflow: visible;
 }
 
-#widget-bar, #history-bar {
+#widget-bar,
+#history-bar {
 	right: 10px;
 	bottom: 74px;
 	width: 350px;
@@ -137,92 +157,136 @@ nav .brand-logo.center{
 	-webkit-border-radius: 6px;
 }
 
-#history-bar p{
+#history-bar p {
 	padding: 6px;
 	cursor: pointer;
 }
 
-.blue-ish{
+.blue-ish {
 	background-color: rgba(84, 110, 122, 0.75);
+	transition: 0.2s linear background-color;
 }
 
+
 .card.blue-ish.darken-1 {
-	transition: 0.2s linear background-color; 
+	transition: 0.2s linear background-color;
+
+#menu-button{
+	display: none;
+
 }
+
 
 /* .card.blue-ish.darken-1:hover {
 	background-color: rgba(84, 110, 122, 0.45);
 } */
 
+
 /* map tweaks */
-#map > div > div.gm-style:nth-child(1) > div.gmnoprint:nth-child(4),
-#map > div > div.gm-style:nth-child(1) > div.gmnoprint:nth-child(6),
-#map > div > div.gm-style:nth-child(1) > div:nth-child(2){
+
+#map>div>div.gm-style:nth-child(1)>div.gmnoprint:nth-child(4),
+#map>div>div.gm-style:nth-child(1)>div.gmnoprint:nth-child(6),
+#map>div>div.gm-style:nth-child(1)>div:nth-child(2) {
 	bottom: 62px !important;
 }
-#map > div > div.gm-style:nth-child(1) > div:nth-child(7),
-#map > div > div.gm-style:nth-child(1) > div:nth-child(8){
+
+#map>div>div.gm-style:nth-child(1)>div:nth-child(7),
+#map>div>div.gm-style:nth-child(1)>div:nth-child(8) {
 	display: none;
 	top: 0px;
 }
-div.gm-style > div.gmnoprint:nth-child(9){
+
+div.gm-style>div.gmnoprint:nth-child(9) {
 	left: 0px !important;
 	bottom: 177px !important;
 }
-div.gm-style > div.gmnoprint:nth-child(11){
+
+div.gm-style>div.gmnoprint:nth-child(11) {
 	top: 63px !important;
 }
 
-/* streetview */ 
-#map > div > div.gm-style:nth-child(2) > div:nth-child(7){
+
+/* streetview */
+
+#map>div>div.gm-style:nth-child(2)>div:nth-child(7) {
 	display: none !important;
 }
-#map > div > div.gm-style:nth-child(2) > div:nth-child(8){
+
+#map>div>div.gm-style:nth-child(2)>div:nth-child(8) {
 	left: 0px !important;
 	bottom: 119px !important;
 }
-#map > div > div.gm-style:nth-child(2) > div:nth-child(9), 
-#map > div > div.gm-style:nth-child(2) > div:nth-child(10){
+
+#map>div>div.gm-style:nth-child(2)>div:nth-child(9),
+#map>div>div.gm-style:nth-child(2)>div:nth-child(10) {
 	top: 63px !important;
 }
-div.gm-style div div.gm-iv-address{
+
+div.gm-style div div.gm-iv-address {
 	height: auto !important;
 }
 
-@media screen and (max-width: 600px){
-	.topbar{
+
+@media screen and (max-width: 600px) {
+	.topbar {
 		display: none;
 	}
-	.toolbar{
+	.toolbar {
 		bottom: auto;
 		overflow: visible;
 	}
-	.toolbar .brand-logo.center{
+	.toolbar .brand-logo.center {
 		display: inline;
 	}
-	#widget-bar{
+	#widget-bar {
+
+@media screen and (max-width: 600px){
+	#menu-button{
+		display: block;
+	}
+	.topbar .brand-logo.center{
+		font-size: 3.4rem;
+	}
+	.toolbar{
+		height: 0px;
+		overflow: hidden;
+	}
+	#widget-bar, #history-bar{
+
 		bottom: 0;
 		right: 0;
 		width: 100%;
 		padding: 0px 5px;
-		height: 50vh;
+		max-height: 50vh;
 	}
-	#login-options, #settings-options{
+	#login-options,
+	#settings-options {
 		bottom: auto;
 		top: 53px;
 		width: 96%;
 		left: 2%
 	}
+	form.searchbar{
+		position: fixed;
+		top: 60px;
+		left: 0px;
+		background-color: rgba(84, 110, 122, 0.75);
+		width: 90%;
+		margin: 5%;
+		padding: 5px 20px;
+		height: 70px;
+		border-radius: 3px;
+	}
 	/* map hacks */
-	#map > div > div.gm-style:nth-child(1) > div.gmnoprint:nth-child(4),
-	#map > div > div.gm-style:nth-child(1) > div.gmnoprint:nth-child(6),
-	#map > div > div.gm-style:nth-child(1) > div:nth-child(2){
+	#map>div>div.gm-style:nth-child(1)>div.gmnoprint:nth-child(4),
+	#map>div>div.gm-style:nth-child(1)>div.gmnoprint:nth-child(6),
+	#map>div>div.gm-style:nth-child(1)>div:nth-child(2) {
 		bottom: 50vh !important;
 	}
-	div.gm-style > div.gmnoprint:nth-child(9){
+	div.gm-style>div.gmnoprint:nth-child(9) {
 		display: none;
 	}
-	div.gm-style > div.gmnoprint:nth-child(11){
+	div.gm-style>div.gmnoprint:nth-child(11) {
 		top: 53px !important;
 	}
 }

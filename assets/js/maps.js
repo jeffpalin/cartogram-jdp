@@ -1,11 +1,10 @@
 // ============================== TABLE OF CONTENTS ==============================
-// 01. Map Functions
-// 02. Location Functions
-// 03. Weather Functions
-// 04. Toolbar Animations
-// 05. Farmers Market Functions
-// 06. Places Functions
+// 01. Weather Functions
+// 02. Toolbar Animations
+// 03. Farmers Market Functions
+// 04. Places Functions
 // ============================== TABLE OF CONTENTS ==============================
+
 
 // -------- 01. MAP FUNCTIONS --------
 // Display map on page and find location
@@ -52,39 +51,12 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.open(map);
 }
 
-// -------- 02. LOCATION FUNCTIONS --------
-function decodeLocation() {
-    var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
-    // Use google maps geolocation api to retrieve exact coordinates
-    navigator.geolocation.getCurrentPosition(function (position) {
-        // Position object, includes latitude and longitude
-        var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-        };
-        // Define latlng parameter using a variable
-        var latlng = pos.lat + ',' + pos.lng;
-        // Structure URL
-        var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&result_type=street_address' + '&key=' + api_key;
-        // Begin ajax call 
-        $.ajax({
-            url: queryURL,
-            method: 'GET'
-        }).done(function (response) {
-            // Loop through JSON object to retrieve desired response result
-            for (var i = 0; i < response.results.length; i++) {
-                // Define address using JSON object
-                var address = response.results[i].formatted_address;
-                // Write address to page
-                $('#location').html(address);
-            }
-            map.panTo(pos);
-        });
-    });
-}
-decodeLocation();
+
 
 // -------- 03. WEATHER FUNCTIONS --------
+
+
+
 function getWeather() {
     var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -116,7 +88,7 @@ function getWeather() {
                 //Weather Icon Code
                 var weatherIcon = response.weather[i].icon;
                 //Weather Icon Actual Image File
-                var iconImage = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
+                var iconImage = "https://openweathermap.org/img/w/" + weatherIcon + ".png";
                 // Create image div
                 var img = $('<img>');
                 // Add iconImage class
@@ -139,7 +111,7 @@ function getWeather() {
 }
 getWeather();
 
-// -------- 04. TOOLBAR ANIMATIONS --------
+// -------- 02. TOOLBAR ANIMATIONS --------
 // Show / hide toolbars on map click
 $('#map')
     // Fade toolbar out on mouse down
@@ -153,11 +125,8 @@ $(document).mouseup(function () {
     $('.blue-ish').css('background-color', '');
 });
 
-
-// -------- 05. FARMERS MARKET FUNCTIONS --------
-
+// -------- 03. FARMERS MARKET FUNCTIONS --------
 function getFarmers(lat, lng) {
-
     navigator.geolocation.getCurrentPosition(function (position) {
         var pos = {
             lat: position.coords.latitude,
@@ -182,13 +151,15 @@ function getFarmers(lat, lng) {
 }
 getFarmers();
 
-// -------- 06. PLACES (PINS) FUNCTIONS --------
+// -------- 04. PLACES (PINS) FUNCTIONS --------
+// Display address in widget
 function populateLocationWidget(pos) {
     var google_places_api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
     // Structure URL
     var latlng = pos.lat + ',' + pos.lng;
     var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
         latlng + '&result_type=street_address' + '&key=' + google_places_api_key;
+    console.log(queryURL);
     $.ajax({
         url: queryURL,
         method: 'GET'
@@ -203,12 +174,14 @@ function populateLocationWidget(pos) {
     });
 }
 
+// Map with pins
 function initMapLocationPlaces() {
     navigator.geolocation.getCurrentPosition(function (position) {
         var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
+        console.log(pos);
         populateLocationWidget(pos);
         map = new google.maps.Map(document.getElementById('map'), {
             center: pos,
@@ -234,9 +207,16 @@ function callback(results, status) {
     }
 }
 
+var gmarkers = [];
+
 function createMarker(place) {
+    var marker;
     var placeLoc = place.geometry.location;
+
     var marker = new google.maps.Marker({
+
+    marker = new google.maps.Marker({
+
         map: map,
         position: placeLoc
     });
@@ -247,30 +227,70 @@ function createMarker(place) {
         } else {
             marker.setAnimation(google.maps.Animation.BOUNCE);
         }
+
         google.maps.event.addListener(marker, 'click', function () {
             infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
                 place.opening_hours + '</div>');
             infowindow.open(map, this);
 
         });
+
+
     }
     marker.setMap(map);
     marker.addListener('click', toggleBounce);
+    gmarkers.push(marker);
+    google.maps.event.addListener(marker, 'click', function () {
+        var content = "<div>";
+        if (place.hasOwnProperty('name')) {
+            content += '<strong>' + place.name + '</strong><br>';
+        }
+        if (place.hasOwnProperty('opening_hours')) {
+            var openNow = place.opening_hours.open_now ? "yes" : "no";
+            content += 'Open Now: ' + openNow + '<br>';
+        }
+        if (place.hasOwnProperty('vicinity')) {
+            var typs = place.vicinity;
+            content += 'Address:' + place.vicinity;
+        }
+        content += "</div>";
+        infowindow.setContent(content);
+        infowindow.open(map, this);
+    });
 }
 
-
-
+function clearMarkers() {
+    for (var i = 0; i < gmarkers.length; i++) {
+        if (gmarkers[i].setMap) {
+            gmarkers[i].setMap(null);
+        }
+    }
+    gmarkers = [];
+}
 
 // Search result function
+
+// Search submit listeners
+
 $('#submit').on('click', function (event) {
     event.preventDefault();
+    var keyword = $('#pac-input').val().trim();
+    addHistory(keyword);
+    searchFor(keyword);
+});
+$("#history-bar").on("click", "p", function(){
+    searchFor( $(this).attr("data-search") );
+});
+
+// Search result function
+function searchFor(keyword){
+    clearMarkers();
     var pos;
     var queryURL;
     var api_key = 'AIzaSyBYvm6i_3YLimMJdS6BAHLKWLW9g723m8o';
     var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
     var radius = 5000;
     var type = ['restaurant', 'store'];
-    var keyword = $('#pac-input').val().trim();
     navigator.geolocation.getCurrentPosition(function (position) {
         pos = {
             lat: position.coords.latitude,
@@ -278,8 +298,7 @@ $('#submit').on('click', function (event) {
         };
         queryURL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + pos.lat + ',' + pos.lng +
             '&radius=' + radius + '&type=' + type + '&keyword=' + keyword + '&key=' + api_key;
-        console.log(queryURL);
-        addHistory(keyword);
+
         $.ajax({
             url: apiURL,
             data: {
@@ -287,19 +306,31 @@ $('#submit').on('click', function (event) {
             },
             dataType: 'json',
             method: 'POST'
+
         }).done(function (response) {
-            map.clear();
+            map.setZoom(12);
+
             for (var i = 0; i < response.data.results.length; i++) {
-                callback();
                 createMarker(response.data.results[i]);
             }
-            map.setZoom(12);
+
         });
     });
     $('#pac-input').val('');
-});
+}
 
 // Map Marker Recenter Function
-$('#mapMarker').on('click', function () {
-    decodeLocation();
+$('.mapMarker').on('click', function () {
+    initMapLocationPlaces();
+});
+
+// side nav setup
+$('.button-collapse').sideNav({
+    menuWidth: 90,
+    edge: 'left',
+    closeOnClick: true, // Closes side-nav on <a> clicks
+    draggable: true, // drag to open on touch screens,
+});
+$('.button-collapse').on("click", function(){
+    $("#settings-options, #login-options, .searchbar").fadeOut();
 });
