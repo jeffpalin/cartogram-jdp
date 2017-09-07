@@ -5,58 +5,7 @@
 // 04. Places Functions
 // ============================== TABLE OF CONTENTS ==============================
 
-
-// -------- 01. MAP FUNCTIONS --------
-// Display map on page and find location
-var map, infoWindow;
-
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-            lat: -34.397,
-            lng: 150.644
-        },
-        zoom: 6,
-        mapTypeId: 'terrain'
-    });
-    infoWindow = new google.maps.InfoWindow;
-
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-
-
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('You');
-            infoWindow.open(map);
-            map.setCenter(pos);
-        }, function () {
-            handleLocationError(true, infoWindow, map.getCenter());
-        });
-    } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-    }
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-        'Error: The Geolocation service failed.' :
-        'Error: Your browser doesn\'t support geolocation.');
-    infoWindow.open(map);
-}
-
-
-
-// -------- 03. WEATHER FUNCTIONS --------
-
-
-
+// -------- 01. WEATHER FUNCTIONS --------
 function getWeather() {
     var api_key = "e1d9840d8542ded69ac25a4b5ffc320b";
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -159,7 +108,6 @@ function populateLocationWidget(pos) {
     var latlng = pos.lat + ',' + pos.lng;
     var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
         latlng + '&result_type=street_address' + '&key=' + google_places_api_key;
-    console.log(queryURL);
     $.ajax({
         url: queryURL,
         method: 'GET'
@@ -181,7 +129,6 @@ function initMapLocationPlaces() {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
-        console.log(pos);
         populateLocationWidget(pos);
         map = new google.maps.Map(document.getElementById('map'), {
             center: pos,
@@ -212,11 +159,7 @@ var gmarkers = [];
 function createMarker(place) {
     var marker;
     var placeLoc = place.geometry.location;
-
-    var marker = new google.maps.Marker({
-
     marker = new google.maps.Marker({
-
         map: map,
         position: placeLoc
     });
@@ -227,15 +170,6 @@ function createMarker(place) {
         } else {
             marker.setAnimation(google.maps.Animation.BOUNCE);
         }
-
-        google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                place.opening_hours + '</div>');
-            infowindow.open(map, this);
-
-        });
-
-
     }
     marker.setMap(map);
     marker.addListener('click', toggleBounce);
@@ -249,6 +183,11 @@ function createMarker(place) {
             var openNow = place.opening_hours.open_now ? "yes" : "no";
             content += 'Open Now: ' + openNow + '<br>';
         }
+        /*
+        if(place.hasOwnProperty('icon')) {
+            content += '<img src="' + place.icon + '"><br>';
+        }
+        */
         if (place.hasOwnProperty('vicinity')) {
             var typs = place.vicinity;
             content += 'Address:' + place.vicinity;
@@ -257,6 +196,7 @@ function createMarker(place) {
         infowindow.setContent(content);
         infowindow.open(map, this);
     });
+    // marker.setMap(map);
 }
 
 function clearMarkers() {
@@ -267,11 +207,7 @@ function clearMarkers() {
     }
     gmarkers = [];
 }
-
-// Search result function
-
 // Search submit listeners
-
 $('#submit').on('click', function (event) {
     event.preventDefault();
     var keyword = $('#pac-input').val().trim();
