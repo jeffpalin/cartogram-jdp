@@ -165,11 +165,24 @@ function createMarker(place) {
         map: map,
         position: placeLoc
     });
-
+    function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                place.opening_hours + '</div>');
+            infowindow.open(map, this);
+        });
+    }
+    marker.setMap(map);
+    marker.addListener('click', toggleBounce);
     gmarkers.push(marker);
     console.log(gmarkers);
-    google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + 
+    google.maps.event.addListener(marker, 'click', function () {
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
             place.opening_hours + '</div>');
         infowindow.open(map, this);
     });
@@ -183,33 +196,7 @@ function clearMarkers() {
         }
     }
     gmarkers = [];
-
-
-    function toggleBounce() {
-        if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-        } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
-        google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                place.opening_hours + '</div>');
-            infowindow.open(map, this);
-            
-        });
-    }
-
-    marker.setMap(map);
-
-
-
-
-    marker.addListener('click', toggleBounce);
-
 }
-
-
-
 
 // Search result function
 $('#submit').on('click', function (event) {
