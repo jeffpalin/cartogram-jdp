@@ -108,6 +108,7 @@ function populateLocationWidget(pos) {
     var latlng = pos.lat + ',' + pos.lng;
     var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
         latlng + '&result_type=street_address' + '&key=' + google_places_api_key;
+    console.log(queryURL);
     $.ajax({
         url: queryURL,
         method: 'GET'
@@ -129,6 +130,7 @@ function initMapLocationPlaces() {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
+        console.log(pos);
         populateLocationWidget(pos);
         map = new google.maps.Map(document.getElementById('map'), {
             center: pos,
@@ -183,11 +185,6 @@ function createMarker(place) {
             var openNow = place.opening_hours.open_now ? "yes" : "no";
             content += 'Open Now: ' + openNow + '<br>';
         }
-        /*
-        if(place.hasOwnProperty('icon')) {
-            content += '<img src="' + place.icon + '"><br>';
-        }
-        */
         if (place.hasOwnProperty('vicinity')) {
             var typs = place.vicinity;
             content += 'Address:' + place.vicinity;
@@ -196,7 +193,6 @@ function createMarker(place) {
         infowindow.setContent(content);
         infowindow.open(map, this);
     });
-    // marker.setMap(map);
 }
 
 function clearMarkers() {
@@ -207,7 +203,6 @@ function clearMarkers() {
     }
     gmarkers = [];
 }
-
 // Search result function
 $('#submit').on('click', function (event) {
     event.preventDefault();
