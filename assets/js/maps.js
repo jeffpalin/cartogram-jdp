@@ -83,8 +83,6 @@ function getFarmers(lat, lng) {
         };
         var lat = pos.lat;
         var lng = pos.lng;
-        console.log(lat);
-        console.log(lng);
         var queryURL = 'https://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=' + lat + '&lng=' + lng;
         $.ajax({
             method: 'GET',
@@ -165,6 +163,7 @@ function createMarker(place) {
         map: map,
         position: placeLoc
     });
+
     function toggleBounce() {
         if (marker.getAnimation() !== null) {
             marker.setAnimation(null);
@@ -176,12 +175,11 @@ function createMarker(place) {
     marker.addListener('click', toggleBounce);
     gmarkers.push(marker);
     google.maps.event.addListener(marker, 'click', function () {
-        console.log(place);
         var content = "<div>";
-        if(place.hasOwnProperty('name')) {
+        if (place.hasOwnProperty('name')) {
             content += '<strong>' + place.name + '</strong><br>';
         }
-        if(place.hasOwnProperty('opening_hours')){
+        if (place.hasOwnProperty('opening_hours')) {
             var openNow = place.opening_hours.open_now ? "yes" : "no";
             content += 'Open Now: ' + openNow + '<br>';
         }
@@ -190,7 +188,7 @@ function createMarker(place) {
             content += '<img src="' + place.icon + '"><br>';
         }
         */
-        if(place.hasOwnProperty('vicinity')) {
+        if (place.hasOwnProperty('vicinity')) {
             var typs = place.vicinity;
             content += 'Address:' + place.vicinity;
         }
@@ -228,7 +226,7 @@ $('#submit').on('click', function (event) {
         };
         queryURL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + pos.lat + ',' + pos.lng +
             '&radius=' + radius + '&type=' + type + '&keyword=' + keyword + '&key=' + api_key;
-        console.log(queryURL);
+
         addHistory(keyword);
         $.ajax({
             url: apiURL,
@@ -238,13 +236,13 @@ $('#submit').on('click', function (event) {
             dataType: 'json',
             method: 'POST'
 
-        }).done(function(response) {
+        }).done(function (response) {
             map.setZoom(12);
 
             for (var i = 0; i < response.data.results.length; i++) {
                 createMarker(response.data.results[i]);
             }
-            
+
         });
     });
     $('#pac-input').val('');
