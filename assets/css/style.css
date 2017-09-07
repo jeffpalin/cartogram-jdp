@@ -59,18 +59,10 @@ body {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
+
 /* logged in items */
 
 #avatar {
-
-ul#slide-out a i{
-	text-align: center;
-	cursor: pointer;
-	color: #5f7c88;
-}
-
-/* logged in items */
-.avatar{
 	display: none;
 	height: 65px;
 	padding: 9px;
@@ -81,8 +73,6 @@ ul#slide-out a i{
 #logout-button,
 #history-button,
 #history-bar {
-	
-li>a.settings-button, li>a.logout-button, li>a.history-button, #history-bar{
 	display: none;
 }
 
@@ -167,13 +157,8 @@ nav .brand-logo.center {
 	transition: 0.2s linear background-color;
 }
 
-
 .card.blue-ish.darken-1 {
 	transition: 0.2s linear background-color;
-
-#menu-button{
-	display: none;
-
 }
 
 
@@ -226,7 +211,6 @@ div.gm-style div div.gm-iv-address {
 	height: auto !important;
 }
 
-
 @media screen and (max-width: 600px) {
 	.topbar {
 		display: none;
@@ -239,19 +223,6 @@ div.gm-style div div.gm-iv-address {
 		display: inline;
 	}
 	#widget-bar {
-
-@media screen and (max-width: 600px){
-	#menu-button{
-		display: block;
-	}
-	.topbar .brand-logo.center{
-		font-size: 3.4rem;
-	}
-	.toolbar{
-		height: 0px;
-		overflow: hidden;
-	}
-	#widget-bar, #history-bar{
 
 		bottom: 0;
 		right: 0;
