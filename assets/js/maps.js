@@ -171,19 +171,31 @@ function createMarker(place) {
         } else {
             marker.setAnimation(google.maps.Animation.BOUNCE);
         }
-        google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                place.opening_hours + '</div>');
-            infowindow.open(map, this);
-        });
     }
     marker.setMap(map);
     marker.addListener('click', toggleBounce);
     gmarkers.push(marker);
-    console.log(gmarkers);
     google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-            place.opening_hours + '</div>');
+        console.log(place);
+        var content = "<div>";
+        if(place.hasOwnProperty('name')) {
+            content += '<strong>' + place.name + '</strong><br>';
+        }
+        if(place.hasOwnProperty('opening_hours')){
+            var openNow = place.opening_hours.open_now ? "yes" : "no";
+            content += 'Open Now: ' + openNow + '<br>';
+        }
+        /*
+        if(place.hasOwnProperty('icon')) {
+            content += '<img src="' + place.icon + '"><br>';
+        }
+        */
+        if(place.hasOwnProperty('vicinity')) {
+            var typs = place.vicinity;
+            content += 'Address:' + place.vicinity;
+        }
+        content += "</div>";
+        infowindow.setContent(content);
         infowindow.open(map, this);
     });
     // marker.setMap(map);
