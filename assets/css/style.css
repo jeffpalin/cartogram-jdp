@@ -27,17 +27,11 @@ body {
 	position: absolute;
 	z-index: 2;
 	font-family: 'Kaushan Script', cursive;
-	opacity: 1;
-	transition: 0.3s linear background-color;
 }
 
 .toolbar {
 	bottom: 0;
 	overflow: hidden;
-}
-.toolbar .brand-logo.center{
-	display: none;
-	font-size: 3.4rem;
 }
 
 #login-options{
@@ -68,6 +62,7 @@ ul#slide-out a{
 	display: none;
 	height: 65px;
 	padding: 9px;
+	margin: auto;
 }
 
 li>a.settings-button, li>a.logout-button, li>a.history-button, #history-bar{
@@ -149,10 +144,11 @@ nav .brand-logo.center{
 
 .blue-ish{
 	background-color: rgba(84, 110, 122, 0.75);
+	transition: 0.2s linear background-color;
 }
 
-.card.blue-ish.darken-1 {
-	transition: 0.2s linear background-color; 
+#menu-button{
+	display: none;
 }
 
 /* .card.blue-ish.darken-1:hover {
@@ -195,28 +191,39 @@ div.gm-style div div.gm-iv-address{
 }
 
 @media screen and (max-width: 600px){
-	.topbar{
-		-display: none;
+	#menu-button{
+		display: block;
+	}
+	.topbar .brand-logo.center{
+		font-size: 3.4rem;
 	}
 	.toolbar{
-		-bottom: auto;
-		-overflow: visible;
-	}
-	.toolbar .brand-logo.center{
-		-display: inline;
+		height: 0px;
+		overflow: hidden;
 	}
 	#widget-bar, #history-bar{
 		bottom: 0;
 		right: 0;
 		width: 100%;
 		padding: 0px 5px;
-		height: 50vh;
+		max-height: 50vh;
 	}
 	#login-options, #settings-options{
 		bottom: auto;
 		top: 53px;
 		width: 96%;
 		left: 2%
+	}
+	form.searchbar{
+		position: fixed;
+		top: 60px;
+		left: 0px;
+		background-color: rgba(84, 110, 122, 0.75);
+		width: 90%;
+		margin: 5%;
+		padding: 5px 20px;
+		height: 70px;
+		border-radius: 3px;
 	}
 	/* map hacks */
 	#map > div > div.gm-style:nth-child(1) > div.gmnoprint:nth-child(4),
