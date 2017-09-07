@@ -203,9 +203,23 @@ function clearMarkers() {
     }
     gmarkers = [];
 }
+<<<<<<< HEAD
 // Search result function
+=======
+// Search submit listeners
+>>>>>>> c50ad58eaee50c042df42ba8a123e1266138a1da
 $('#submit').on('click', function (event) {
     event.preventDefault();
+    var keyword = $('#pac-input').val().trim();
+    addHistory(keyword);
+    searchFor(keyword);
+});
+$("#history-bar").on("click", "p", function(){
+    searchFor( $(this).attr("data-search") );
+});
+
+// Search result function
+function searchFor(keyword){
     clearMarkers();
     var pos;
     var queryURL;
@@ -213,7 +227,6 @@ $('#submit').on('click', function (event) {
     var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
     var radius = 5000;
     var type = ['restaurant', 'store'];
-    var keyword = $('#pac-input').val().trim();
     navigator.geolocation.getCurrentPosition(function (position) {
         pos = {
             lat: position.coords.latitude,
@@ -222,7 +235,6 @@ $('#submit').on('click', function (event) {
         queryURL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + pos.lat + ',' + pos.lng +
             '&radius=' + radius + '&type=' + type + '&keyword=' + keyword + '&key=' + api_key;
 
-        addHistory(keyword);
         $.ajax({
             url: apiURL,
             data: {
@@ -241,9 +253,20 @@ $('#submit').on('click', function (event) {
         });
     });
     $('#pac-input').val('');
-});
+}
 
 // Map Marker Recenter Function
-$('#mapMarker').on('click', function () {
+$('.mapMarker').on('click', function () {
     initMapLocationPlaces();
+});
+
+// side nav setup
+$('.button-collapse').sideNav({
+    menuWidth: 90,
+    edge: 'left',
+    closeOnClick: true, // Closes side-nav on <a> clicks
+    draggable: true, // drag to open on touch screens,
+});
+$('.button-collapse').on("click", function(){
+    $("#settings-options, #login-options, .searchbar").fadeOut();
 });
