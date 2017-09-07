@@ -213,6 +213,7 @@ $('#submit').on('click', function (event) {
     var keyword = $('#pac-input').val().trim();
     addHistory(keyword);
     searchFor(keyword);
+    $('.searchbar').toggle(400);
 });
 $("#history-bar").on("click", "p", function(){
     searchFor( $(this).attr("data-search") );
