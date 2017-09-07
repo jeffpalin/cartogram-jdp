@@ -1,4 +1,4 @@
-$('#searchicon').on('click', function(){
+$('.searchicon').on('click', function(){
 	$('.searchbar').toggle(400);
 });
 
