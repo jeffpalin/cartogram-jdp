@@ -34,14 +34,11 @@ body {
 	bottom: 0;
 	overflow: hidden;
 }
-<<<<<<< HEAD
 
 .toolbar .brand-logo.center {
 	display: none;
 	font-size: 3.4rem;
 }
-=======
->>>>>>> c50ad58eaee50c042df42ba8a123e1266138a1da
 
 #login-options {
 	position: absolute;
@@ -62,35 +59,20 @@ body {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
-<<<<<<< HEAD
 
 /* logged in items */
 
 #avatar {
-=======
-ul#slide-out a i{
-	text-align: center;
-	cursor: pointer;
-	color: #5f7c88;
-}
-
-/* logged in items */
-.avatar{
->>>>>>> c50ad58eaee50c042df42ba8a123e1266138a1da
 	display: none;
 	height: 65px;
 	padding: 9px;
 	margin: auto;
 }
 
-<<<<<<< HEAD
 #settings-button,
 #logout-button,
 #history-button,
 #history-bar {
-=======
-li>a.settings-button, li>a.logout-button, li>a.history-button, #history-bar{
->>>>>>> c50ad58eaee50c042df42ba8a123e1266138a1da
 	display: none;
 }
 
@@ -175,13 +157,8 @@ nav .brand-logo.center {
 	transition: 0.2s linear background-color;
 }
 
-<<<<<<< HEAD
 .card.blue-ish.darken-1 {
 	transition: 0.2s linear background-color;
-=======
-#menu-button{
-	display: none;
->>>>>>> c50ad58eaee50c042df42ba8a123e1266138a1da
 }
 
 
@@ -234,7 +211,6 @@ div.gm-style div div.gm-iv-address {
 	height: auto !important;
 }
 
-<<<<<<< HEAD
 @media screen and (max-width: 600px) {
 	.topbar {
 		display: none;
@@ -247,20 +223,7 @@ div.gm-style div div.gm-iv-address {
 		display: inline;
 	}
 	#widget-bar {
-=======
-@media screen and (max-width: 600px){
-	#menu-button{
-		display: block;
-	}
-	.topbar .brand-logo.center{
-		font-size: 3.4rem;
-	}
-	.toolbar{
-		height: 0px;
-		overflow: hidden;
-	}
-	#widget-bar, #history-bar{
->>>>>>> c50ad58eaee50c042df42ba8a123e1266138a1da
+
 		bottom: 0;
 		right: 0;
 		width: 100%;

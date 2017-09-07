@@ -203,11 +203,11 @@ function clearMarkers() {
     }
     gmarkers = [];
 }
-<<<<<<< HEAD
+
 // Search result function
-=======
+
 // Search submit listeners
->>>>>>> c50ad58eaee50c042df42ba8a123e1266138a1da
+
 $('#submit').on('click', function (event) {
     event.preventDefault();
     var keyword = $('#pac-input').val().trim();
