@@ -175,7 +175,8 @@ nav .brand-logo.center{
 	display: none;
 	top: 0px;
 }
-div.gm-style > div.gmnoprint:nth-child(9){
+div.gm-style > div.gmnoprint:nth-child(9),
+div.gm-style > div.gmnoprint:nth-child(10){
 	left: 0px !important;
 	bottom: 177px !important;
 }
